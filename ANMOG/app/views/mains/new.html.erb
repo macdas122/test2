@@ -1,0 +1,102 @@
+<style>
+.box {
+     float: left;
+     width: 98%;
+     margin-right: 0.5%;
+     margin-left: 0.5%;
+     padding: 2px;
+     box-sizing: border-box;
+}
+.smallbox {
+     float: left;
+     width: 45%;
+     padding: 1px;
+     box-sizing: border-box;
+}
+.smallboxen {
+     float: left;
+     width: 38%;
+     padding: 1px;
+     box-sizing: border-box;
+}
+.casing {
+     float: left;
+     width: 100%;
+}
+.holeCasing {
+     float: left;
+     width: 40%;
+     box-sizing: border-box;
+}
+.justCasing {
+     float: left;
+     width: 90%;
+     box-sizing: border-box;
+}
+.just {
+     float: left;
+     width: 50%;
+     box-sizing: border-box;
+}
+</style>
+
+
+
+  <section>
+    <nav class="navbar navbar-default">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="#">SKC AMNOG</a>
+        </div>
+        <ul class="nav navbar-nav">
+          <li><a href="../dashboard">Newsfeed</a></li>
+          <li><a href="../mains">Datenbank</a></li>
+          <li><a href="../mains/show">Suche</a></li>
+          <li><a href="../endpoints/show">EP-Suche</a></li>
+          <li class="active"><a href="../main">Dateneingabe</a></li>
+          <li><a href="../main/show">Datenverwaltung</a></li>
+          <li> <%= link_to "Ausloggen", destroy_skc_session_path, method: :delete %></li>
+        </ul>
+      </div>
+    </nav>
+  </section>
+
+
+      <section class="casing">
+         <div class="just">
+             <div class ="well">
+		<h4>Neues Verfahren</h4>
+	     
+                <%= form_for :Main, :url => {:controller => "main" , :action => "create" }, :html => {:class => "nifty_form"} do |f| %>
+                <%= f.hidden_field :id , :value =>  Main.maximum(:id) + 1 %>
+                <%= f.hidden_field :subgroups , :value => 0 %>
+		<% @skc = current_skc %>
+                <%= f.hidden_field :updated_by , :value => @skc.email %>
+                <%= f.hidden_field :created_at , :value => Time.now %>
+                <%= f.hidden_field :updated_at , :value => Time.now %>
+                <div class="smallbox">G-BA-Verfahrensnummer<span title="Nummer unter der das Nutzenbewertungsverfahren beim G-BA zu finden ist. Zu finden im Link des Nutzenbewertungsverfahrens auf der G-BA-Seite."><img src="https://i.ibb.co/jf8KNrr/iconfinder-Info-132643.png"/></span></div><div class="smallbox"><%= f.number_field :gba_number %> </div><br />
+                <div class="smallbox">Wirkstoff</div><div class="smallbox"><%= f.text_field :drug_name %></div> <br />
+                <div class="smallbox">Handelsname</div><div class="smallbox"><%= f.text_field :brand_name %> </div><br />
+                <div class="smallbox">Pharmazeutisches Unternehmen</div><div class="smallbox"> <%= f.text_field :manufacturer %> </div><br />
+                <div class="smallbox">Anwendungsgebiet</div><div class="smallbox"><%= f.select(:field_of_application, options_for_select([['Kardiologie' , 'Kardiologie'],['Krankheit des Atmungssystems','Krankheit des Atmungssystems'],['Dermatologie' , 'Dermatologie'],['Krankheit des Muskel-Skelett-Systems','Krankheit des Muskel-Skelett-Systems'],['Gastroenterologie' ,'Gastroenterologie'],['Hämatologie' , 'Hämatologie'],['Immunologie' , 'Immunologie'],['Infektiologie' , 'Infektologie'],['Stoffwechselkrankheit' , 'Stoffwechselkrankheit'],['Neurologie' , 'Neurologie'],['Onkologie' , 'Onkologie'],['Ophthalmologie' , 'Ophthalmologie']])) %></div><br />
+                <div class="smallbox">Indikation</div><div class="smallbox"><%= f.text_area :indication %></div> <br />
+                <div class="smallbox">Label<span title="Das Label ist eine Beschreibung des Anwendungsgebietes. Zu finden im Dossier, Modul 1 unter 'Zugelassene Anwendungsgebiete, auf die sich das Dossier bezieht'."><img src="https://i.ibb.co/jf8KNrr/iconfinder-Info-132643.png"/></span></div><div class="smallbox"><%= f.text_area :label %></div> <br />
+                <div class="casing"><div class="smallbox">Orphan-Wirkstoff</div><div class="smallbox"><%= f.check_box :orphan_drug %></div></div> <br />
+                <div class="casing"><div class="smallbox">Ersteinreichung</div><div class="smallbox"><%= f.check_box :erst_einreichung %></div></div> <br />
+                <div class="casing"><div class="smallbox">Neues Anwendungsgebiet</div><div class="smallbox"><%= f.check_box :new_field %></div></div> <br />
+                <div class="smallbox">Erneute Nutzenbewertung auf Antrag des pharm. Unternehmers nach § 14 (5. Kap. § 1 Abs. 2 Nr. 6 VerfO)</div><div class="smallbox"><%= f.check_box :science %></div> <br />
+                <div class="casing"><div class="smallbox">Erneute Nutzenbewertung §13 (neue wissenschaftliche Erkenntnisse)</div><div class="smallbox"><%= f.check_box :basic_evidence %></div></div> <br />
+                <div class="casing"><div class="smallbox">Neubewertung nach Fristablauf</div><div class="smallbox"><%= f.check_box :expired_time %></div></div> <br />
+                <div class="casing"><div class="smallbox">Überschreitung der 1 Mio. Euro-Grenze</div><div class="smallbox"><%= f.check_box :over_one_million %></div></div> <br />
+                <div class="casing"><div class="smallbox">Überschreitung der 50 Mio. Euro-Grenze</div><div class="smallbox"><%= f.check_box :exceedance_money %></div></div> <br />
+                <div class="casing"><div class="smallbox">Aufhebung des Orphan Drug-Status</div><div class="smallbox"><%= f.check_box :lors_of_odd %></div></div> <br />
+                <div class="smallbox">Verfahrensstatus</div><div class="smallbox"><%= f.select(:status, options_for_select([['Verfahren nach §35a SGB V begonnen' , 'Verfahren nach  §35a SGB V begonnen'],['Verfahren abgeschlossen' , 'Verfahren abgeschlossen'],['Beschlussfassung wird vorbereitet' , 'Beschlussfassung wird vorbereitet'],['Stellungnameverfahren eröffnet','Stellungnameverfahren eröffnet'],['Verfahren freigestellt','Verfahren freigestellt'],['Verfahren eingestellt','Verfahren eingestellt']])) %></div>  <br />
+                <div class="smallbox">Beginn des Verfahrens</div><div class="smallbox"><%= f.date_field :start_procedure %> </div><br />
+                <div class="smallbox">Beschlussfassung</div><div class="smallbox"><%= f.date_field :end_procedure %> </div><br />
+                <div class="smallbox">Befristung des Beschlusses</div><div class="smallbox"><%= f.date_field :befristung %> </div><br />
+                <%= f.hidden_field :benefit_percentige , :value => 0 %>
+                <%= f.submit "Verfahren speichern" %>
+                <% end %>
+	   </div>
+        </div>
+     </section>

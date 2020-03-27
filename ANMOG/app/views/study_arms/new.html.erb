@@ -1,0 +1,87 @@
+ <style>
+  .box {
+     float: left;
+     width: 98%;
+     margin-right: 0.5%;
+     margin-left: 0.5%;
+     padding: 2px;
+     box-sizing: border-box;
+  }
+  .smallbox {
+     float: left;
+     width: 45%;
+     padding: 1px;
+     box-sizing: border-box;
+  }
+  .smallboxen {
+     float: left;
+     width: 38%;
+     padding: 1px;
+     box-sizing: border-box;
+  }
+  .casing {
+     float: left;
+     width: 100%;
+  }
+  .holeCasing {
+     float: left;
+     width: 40%;
+     box-sizing: border-box;
+  }
+  .justCasing {
+     float: left;
+     width: 90%;
+     box-sizing: border-box;
+  }
+  .just {
+     float: left;
+     width: 50%;
+     box-sizing: border-box;
+  }
+ </style>
+
+ <section>
+    <nav class="navbar navbar-default">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="#">SKC AMNOG</a>
+        </div>
+        <ul class="nav navbar-nav">
+          <li><a href="../dashboard">Newsfeed</a></li>
+          <li><a href="../mains">Datenbank</a></li>
+          <li><a href="../mains/show">Suche</a></li>
+          <li><a href="../endpoints/show">EP-Suche</a></li>
+          <li class="active"><a href="../main">Dateneingabe</a></li>
+          <li><a href="../main/show">Datenverwaltung</a></li>
+          <li> <%= link_to "Ausloggen", destroy_skc_session_path, method: :delete %></li>
+        </ul>
+      </div>
+    </nav>
+ </section>
+
+
+
+    <ul class="casing">
+        <section class="holeCasing">
+          <h3><u>Neuer Studienarm</u></h3>
+          <%= form_for :Study_arms, :url => {:controller => "study_arms" , :action => "create" }, :html => {:class => "nifty_form"} do |sa| %>
+          <%= sa.hidden_field :id , :value => StudyArm.maximum(:id) + 1 %>
+          <%= sa.hidden_field :created_at , :value => Time.now %>
+          <%= sa.hidden_field :updated_at , :value => Time.now %>
+          <%= sa.hidden_field :updated_by , :value => current_skc %>
+          <%= sa.hidden_field :iclassification , :value => 'keine' %>
+          <div class="smallbox">Studienbezeichnung</div><div class="smallbox"> <%=  sa.collection_select(:stud_name , Studies.all.order(id: :DESC) , :bezeichnung  , :bezeichnung) %> </div>
+          <div class="smallbox">Studienarmbezeichnung</div><div class="smallbox"><%= sa.text_field :bezeichnung %></div>
+          <div class="smallbox">Kategorie</div><div class="smallbox"><%= sa.select(:controlled_intervention , options_for_select([['Kontrollarm','Kontrollarm'],['Interventionsarm','Interventionsarm']])) %></div>
+          <div class="smallbox">Patientenanzahl</div><div class="smallbox"><%= sa.number_field :number_patient %></div>
+          <div class="smallbox">Behandlungslänge nicht zutreffend</div><div class="smallbox"><%= sa.check_box :zutreffend %></div>
+         <div class="smallbox">Behandlungslänge pro Patient<span title="Dauer der Behandlung eines Patienten innerhalb der Studie mit der Studienmedikation (ohne Screening, Behandlungspausen, Nachbeobachtungszeit o. ä.). Bei einer ereignisgesteuerten Dauer, bzw. Dauer der Vergleichsmöglichkeit, ist 'Behandlungslänge nicht zutreffend' anzukreuzen und dies in der Anmerkung  zu erläutern. Zu finden im Dossier, Modul 4, unter 'Charakteristika der in die Bewertung eingeschlossenen Studien…'"><img src="https://i.ibb.co/jf8KNrr/iconfinder-Info-132643.png"/></span></div><div class="smallbox"><%= sa.select(:behandlungsnummer , options_for_select((1..999).step(1))) %><%= sa.select(:behandlungstyp, options_for_select([['Tage','Tage'],['Wochen','Wochen'],['Monate','Monate'],['Jahre','Jahre']])) %></div>
+          <div class="smallbox">Medikation</div><div class="smallbox"><%= sa.text_field :medication %></div>
+          <div class="smallbox">Dosierung</div><div class="smallbox"><%= sa.text_area :dosing %></div>
+          <div class="smallbox">Art der Verabreichung<span title="Bei der Auswahl 'Mehrere' bitte genauer in der Anmerkung angeben"><img src="https://i.ibb.co/jf8KNrr/iconfinder-Info-132643.png"/></span>
+          </div><div class="smallbox"><%= sa.select(:verabreichnung , options_for_select([['Oral','Oral'],['Injektion','Injektion'],['Infusion/Oral','Infusion/Oral'],['Infusion','Infusion'],['intrazerebroventrikuläre Infusion','intrazerebroventrikuläre Infusion'],['Instillation','Instillation'],['Intravenös','Intravenös'],['Subkutan','Subkutan'],['Intraläsional','Intraläsional'],['Topisch','Topisch'],['Mehrere','Mehrere']])) %></div>
+        <div class="smallbox">Anmerkung</div><div class="smallbox"> <%= sa.text_area :anmerkung %></div> <br />
+          <%= sa.submit "Studienarm speichern"%>
+          <% end %>
+        </section>
+    </ul>

@@ -1,0 +1,2 @@
+class Jtkpvh < ApplicationRecord
+end

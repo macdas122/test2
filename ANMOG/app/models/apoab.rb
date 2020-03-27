@@ -1,0 +1,2 @@
+class Apoab < ApplicationRecord
+end

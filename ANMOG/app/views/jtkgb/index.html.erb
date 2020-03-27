@@ -1,0 +1,22 @@
+<% @pzn =  Pzn.all.order(:PZN).uniq {|h| h[:PZN]} %>
+<section>
+        <h3><u>Jahrestherapiekosten Aktuell</u></3>
+        <%= form_for :Jtkgbs , :url => {:controller => "jtkgb" , :action => "create"}, :html => {:class => "nifty_form"} do |jtk|%>
+        <% @user = current_skc %>
+        <%= jtk.hidden_field :id , :value => (Jtkak.all.count + 1) %>  
+        <%= jtk.hidden_field :eingetragen , :value => @user.email %>
+        <div>Subgrouppe</div> <div><%= jtk.text_area :subgruppe %></div>
+        <div>Dosierung in Packungen</div> <div><%= jtk.number_field :dosierung , class: :text_field, :step => 0.01%></div>
+        <div>Verfahren des Beschlussdatums</div> <div><%= jtk.collection_select(:updated_at , Main.all.order(:gba_number), :end_procedure , :gba_number)%></div>
+        <div>PZN #1</div> <div><%= jtk.collection_select(:pzn_eins , @pzn , :PZN , :PZN , prompt: true) %></div>
+        <div>PZN #2</div> <div><%= jtk.collection_select(:pzn_zwei , @pzn , :PZN , :PZN , prompt: true) %></div>
+        <div>PZN #3</div> <div><%= jtk.collection_select(:pzn_drei , @pzn , :PZN , :PZN , prompt: true) %></div>
+        <div>PZN #4</div> <div><%= jtk.collection_select(:pzn_vier , @pzn , :PZN , :PZN , prompt: true) %></div>
+        <div>PZN #5</div> <div><%= jtk.collection_select(:pzn_fuenf , @pzn , :PZN , :PZN , prompt: true) %></div>
+        <div>PZN #6</div> <div><%= jtk.collection_select(:pzn_sechs , @pzn , :PZN , :PZN , prompt: true) %></div>
+        <%= jtk.submit "Speichern" %>
+        <% end %>
+
+
+</section>
+

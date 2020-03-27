@@ -1,21 +1,26 @@
 class Subgroups < ActiveRecord::Migration[5.2]
   def change
     create_table :subgroups do |t|
-      t.string :manufacturer            , null: false
-      t.integer :gba_number             , null: false
-      t.string :sub_name                , null: false
-      t.string :act                     , null: false
-      t.boolean :evidence               , null: false
-      t.boolean :itc                    , null: false
-      t.integer :studies                , null: false
-      t.integer :population_min         , null: false
-      t.integer :population_max         , null: false
-      t.decimal :cost_zvt               , null: true
-      t.decimal :cost_drug              , null: true
-      t.string :lightihood              , null: false
-      t.string :benefit                 , null: false
+      t.integer :verfahrensnummer   			, null: false
+      t.string :subgroup_name           		, null: false
+      t.string :act                     		, null: true
+      t.boolean :itc					, null: false	
+      t.boolean :nma					, null: false
+      t.boolean :maic					, null: false
+      t.integer :itc_eins	        		, null: true
+      t.integer :itc_zwei				, null: true
+      t.integer :itc_drei				, null: true
+      t.integer :itc_vier				, null: true
+      t.integer :itc_fuenf				, null: true
+      t.string :wahrscheinlichkeit      		, null: false
+      t.string :benefit                 		, null: false
+      t.string :studie_eins	        		, null: true
+      t.string :studie_zwei             		, null: true
+      t.string :studie_drei             		, null: true
+      t.string :studie_vier             		, null: true
+      t.string :studie_fuenf            		, null: true
+      t.string :studie_sechs            		, null: true
 
-     t.timestamps                       null: false
     end
     add_index :subgroups, :id, unique: true
   end

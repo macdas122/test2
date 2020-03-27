@@ -1,0 +1,103 @@
+<style>
+.box {
+     float: left;
+     width: 98%;
+     margin-right: 0.5%;
+     margin-left: 0.5%;
+     padding: 2px;
+     box-sizing: border-box;
+}
+.smallbox {
+     float: left;
+     width: 45%;
+     padding: 1px;
+     box-sizing: border-box;
+}
+.smallboxen {
+     float: left;
+     width: 38%;
+     padding: 1px;
+     box-sizing: border-box;
+}
+.casing {
+     float: left;
+     width: 100%;
+}
+.holeCasing {
+     float: left;
+     width: 40%;
+     box-sizing: border-box;
+}
+.justCasing {
+     float: left;
+     width: 90%;
+     box-sizing: border-box;
+}
+.just {
+     float: left;
+     width: 50%;
+     box-sizing: border-box;
+}
+</style>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"/>
+
+
+<section>
+  <nav class="navbar navbar-default">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <a class="navbar-brand" href="#">SKC AMNOG</a>
+      </div>
+      <ul class="nav navbar-nav">
+        <li><a href="../dashboard">Newsfeed</a></li>
+        <li><a href="../mains">Datenbank</a></li>
+        <li><a href="../mains/show">Suche</a></li>
+        <li><a href="../endpoints/show">EP-Suche</a></li>
+        <li class="active"><a href="../main">Dateneingabe</a></li>
+        <li><a href="../main/show">Datenverwaltung</a></li>
+        <li> <%= link_to "Ausloggen", destroy_skc_session_path, method: :delete %></li>
+      </ul>
+    </div>
+  </nav>
+</section>
+<% @skc = current_skc %>
+    <ul class="casing">
+        <div class="holeCasing">
+        <h3><u>Neue Subgruppe</u></h3>
+        <%= form_for :Iqsubgroups, :url => {:controller => "iqsubgroup" , :action => "create" }, :html => {:class => "nifty_form"} do |is| %>
+        <%= is.hidden_field :id , :value => Iqsubgroup.maximum(:id) + 1 %>
+        <%= is.hidden_field :created_at , :value => Time.now %>
+        <%= is.hidden_field :updated_at , :value => Time.now %>
+        <%= is.hidden_field :updated_by , :value => @skc.email %>
+
+        <div class="smallbox">G-B-Verfahrensnummer</div><div class="smallbox"> <%=  is.collection_select(:verfahrensnummer, Main.all.order(:gba_number), :gba_number, :gba_number)  %></div> <br />
+        <div class="smallbox">Bewertung durchgeführt von</div><div class="smallbox"><%= is.select(:bewertung, options_for_select([['G-BA' , 'G-BA'],['IQWiG','IQWiG']]))  %> </div> <br />
+        <div class="smallbox">Bezeichnung der Subgruppe</div><div class="smallbox"> <%= is.text_area :subgroup_name %></div> <br />
+        <div class="smallbox">ZVT<span title="Zwecks Vergleichstherapie/Appropriate Comparison Therapy"><img src="https://i.ibb.co/jf8KNrr/iconfinder-Info-132643.png"/></span>
+        </div><div class="smallbox"> <%= is.text_area :act %></div> <br />
+        <div class="smallbox">ZVT Status</div><div class="smallbox"><%= is.select(:zvt_status, options_for_select([['nicht Vorhanden' , 'nicht Vorhanden'],['nicht eingetragen','nicht eingetragen'],['eingetragen','eingetragen']]))  %> </div> <br />
+        <div class="smallbox">Studie Nr. 1</div><div class="smallbox"><%= is.collection_select(:studie_eins, @studiengrp , :bezeichnung, :bezeichnung, prompt: true) %> </div> <br />
+        <div class="smallbox">Studie Nr. 2</div><div class="smallbox"><%= is.collection_select(:studie_zwei, @studiengrp , :bezeichnung, :bezeichnung, prompt: true) %> </div> <br />
+        <div class="smallbox">Studie Nr. 3</div><div class="smallbox"><%= is.collection_select(:studie_drei, @studiengrp , :bezeichnung, :bezeichnung, prompt: true) %> </div> <br />
+        <div class="smallbox">Studie Nr. 4</div><div class="smallbox"><%= is.collection_select(:studie_vier, @studiengrp , :bezeichnung, :bezeichnung, prompt: true) %> </div> <br />
+        <div class="smallbox">Studie Nr. 5</div><div class="smallbox"><%= is.collection_select(:studie_fuenf, @studiengrp , :bezeichnung, :bezeichnung, prompt: true) %> </div> <br />
+        <div class="smallbox">Studie Nr. 6</div><div class="smallbox"><%= is.collection_select(:studie_sechs, @studiengrp , :bezeichnung, :bezeichnung, prompt: true) %> </div> <br />
+        <div class="smallbox">ITC</div><div class="smallbox"><%= is.check_box :itc %> </div><br />
+        <div class="smallbox">NMA</div><div class="smallbox"><%= is.check_box :nma %> </div><br />
+        <div class="smallbox">MAIC</div><div class="smallbox"><%= is.check_box  :maic %> </div><br />
+        <div class="smallbox">ITC/NMA/MAIC<span title="Indirect Treatment Comparison/Indirekter Vergleich. Network-Meta Analysis/Netwerz-Metaanalyse. Matching Adjusted Indirect Comparison/Matching-adjustierter Indirekter Vergleich."><img src="https://i.ibb.co/jf8KNrr/iconfinder-Info-132643.png"/></span></div><div class="smallbox"><%= is.collection_select(:itc_eins , Studies.all.order(:bezeichnung), :id, :bezeichnung, prompt: true) %><%= is.collection_select(:itc_zwei , Studies.all.order(:studien_name), :id, :bezeichnung, prompt: true) %><%= is.collection_select(:itc_drei , Studies.all.order(:studien_name), :id, :bezeichnung, prompt:true) %><%= is.collection_select(:itc_vier , Studies.all.order(:studien_name), :id, :bezeichnung, prompt: true) %><%= is.collection_select(:itc_fuenf , Studies.all.order(:studien_name), :id, :bezeichnung, prompt: true) %><%= is.collection_select(:itc_sechs , Studies.all.order(:studien_name), :id, :bezeichnung, prompt: true) %><%= is.collection_select(:itc_sieben , Studies.all.order(:studien_name), :id, :bezeichnung, prompt: true) %><%= is.collection_select(:itc_acht , Studies.all.order(:studien_name), :id, :bezeichnung, prompt: true) %><%= is.collection_select(:itc_neun , Studies.all.order(:studien_name), :id, :bezeichnung, prompt: true) %><%= is.collection_select(:itc_zehn , Studies.all.order(:studien_name), :id, :bezeichnung, prompt: true) %><%= is.collection_select(:itc_elf , Studies.all.order(:studien_name), :id, :bezeichnung, prompt: true) %><%= is.collection_select(:itc_zwoelf , Studies.all.order(:studien_name), :id, :bezeichnung, prompt: true) %>
+</div> <br />
+        <div class="casing"><h4><u>Zusatznutzenclaim</u></h4> </div>
+        <div class="smallbox">Wahrscheinlichkeit</div><div class="smallbox"><%= is.select(:wahrscheinlichkeit, options_for_select([['Anhaltspunkt' , 'Anhaltspunkt'],['Hinweis','Hinweis'],['Beweis','Beweins'],['-','']]))  %> </div> <br />
+        <div class="smallbox">Kategorie Zusatznutzen</div><div class="smallbox"> <%= is.select(:benefit , options_for_select([['Erheblich','erheblicher Zusatznutzen'],['Beträchtlich','beträchtlicher Zusatznutzen'],['Gering','geringer Zusatznutzen'],['nicht quantifiziert','nicht quantifizierter Zusatznutzen'],['Kein','Kein Zusatznutzen'],['-','']])) %> </div><br />
+         <div class="casing"><h4><u>allgemeine Anmerkungen</u></h4> </div>
+         <div class="smallbox">Anmerkung</div><div class="smallbox"> <%= is.text_area :anmerkung %></div> <br />
+        <%= is.submit "Subgruppe speichern"%>
+        <% end %>
+        </div>
+     </ul>
+

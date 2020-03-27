@@ -1,0 +1,2 @@
+class Iqsubgroup < ApplicationRecord
+end

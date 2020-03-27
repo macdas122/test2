@@ -1,0 +1,8 @@
+<section>
+<h3><u>Lauertaxe-Anpassungen</u></h3>
+    <%= form_for (@pzn), :url => {:action => 'index' }  do |p| %>
+	<div>Pzn </div><div><%=	p.collection_select(:pzn , Pzn.all.order(:pzn).uniq {|h| h[:pzn]}, :pzn , :pzn , prompt: true) %></div>
+	<div>Datum </div><div><%= p.date_field :created_at %></div>
+    <%= p.submit "Anpassen" %>
+    <% end %>	
+</section>

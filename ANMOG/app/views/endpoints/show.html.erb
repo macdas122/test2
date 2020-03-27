@@ -1,0 +1,85 @@
+<style>
+.box {
+     float: left;
+     width: 98%;
+     margin-right: 0.5%;
+     margin-left: 0.5%;
+     padding: 2px;
+     box-sizing: border-box;
+}
+</style>
+
+
+ <section>
+   <nav class="navbar navbar-default">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <a class="navbar-brand" href="#">SKC AMNOG</a>
+      </div>
+      <ul class="nav navbar-nav">
+        <li><a href="../dashboard">Newsfeed</a></li>
+        <li><a href="../mains">Datenbank</a></li>
+        <li><a href="../mains/show">Verfahren-Suche</a></li>
+        <li class="active"><a href="../endpoints/show">EP-Suche</a></li>
+        <li><a href="../main/show">Datenverwaltung</a></li>
+        <li> <%= link_to "Ausloggen", destroy_skc_session_path, method: :delete %></li>
+      </ul>
+    </div>
+   </nav>
+ </section>
+
+ <section class="box">
+ <section>
+   <h4>Endpunktsuche<h4>
+ </section>
+ <section class="search-form">
+      <%= form_for :endpoints, method: :get do |f| %>
+          <div class="input-group input-group-sm">
+              <%= label_tag :keywords, nil, class: "sr-only" %>
+              <%= text_field_tag :keywords, nil,
+                  placeholder:  "Endpunktbezeichnung oder Studienname",
+                  class: "form-control input-sm" %>
+                <span class="input-group-btn">
+                      <%= submit_tag "Suchen",
+                          class: "btn btn-info " %>
+                      </span>
+          </div>
+        <% end %>
+  </section>
+  <section class="search-results">
+      <table class="table table-bordered table-striped">
+          <thead>
+              <tr>
+                <th>Studienbezeichnung</th>
+                <th>Endpunktbezeichnung</th>
+                <th>Instrument</th>
+                <th>Kategorie</th>
+                <th>Klassifikation</th>
+                <th>Zur Nutzenwertung herangezogen</th>
+                <th>Dazugehöriges Verfahren</th>
+             </tr>
+          </thead>
+                       <% @ep.each do |endpoint| %>
+	   <tbody>
+                  <tr>
+                    <td><%= endpoint.study %></td>
+                    <td><%= endpoint.bezeichnung %></td>
+                    <td><%= endpoint.instrument %></td>
+                    <td><%= endpoint.category %></td>
+                    <td><%= endpoint.classification %></td>
+                    <td><%= endpoint.herangezogen %></td>
+		    <% @sub = Subgroup.where("studie_eins = ?", endpoint.study).or(Subgroup.where("studie_zwei = ?", endpoint.study)).or(Subgroup.where("studie_drei = ?", endpoint.study)).or(Subgroup.where("studie_vier = ?", endpoint.study))
+
+
+
+		       @sub = @sub.select(:verfahrensnummer).distinct
+		        %><td><%@sub.each do |s|%>
+                        <% test = Main.where("gba_number = ?",s.verfahrensnummer) %>
+			<% test.each do |t| %><%= link_to t.drug_name , edit_mains_path(t.id)  %><%end%>
+			<%end%><td>
+                  </tr>
+                <% end %>
+          </tbody>
+      </table>
+  </section>
+ </section>

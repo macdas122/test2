@@ -1,4 +1,4 @@
-Rails.application.configure do
+ass="smallbox"><%=ails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
   # Code is not reloaded between requests.

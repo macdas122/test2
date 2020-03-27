@@ -1,0 +1,35 @@
+<style>
+.smallbox {
+     float: left;
+     width: 45%;
+     padding: 1px;
+     box-sizing: border-box;
+}
+.holeCasing {
+     float: left;
+     width: 32%;
+     box-sizing: border-box;
+}
+</style>
+
+
+
+
+        <section class="holeCasing">
+          <h3><u>Endpunkt</u></h3>
+          <%= form_for @Endpoint do |ep| %>
+	  <% @skc = current_skc %>
+          <%= ep.hidden_field :updated_by , :value => @skc.email %>
+          <%= ep.hidden_field :updated_at , :value => Time.now %> 
+          <div class="smallbox">Studienbezeichnung</div><div class="smallbox"><%= ep.collection_select(:study, @studie, :bezeichnung, :bezeichnung , prompt: true, selected: @Endpoint.study) %> </div> <br>
+          <div class="smallbox">Endpunktbezeichnung</div><div class="smallbox"> <%=  ep.text_area :bezeichnung %> </div>
+          <div class="smallbox">Instrument</div><div class="smallbox"><%= ep.text_area :instrument %></div>
+          <div class="smallbox">Kategorie</div><div class="smallbox"><%= ep.select(:category , options_for_select([['Mortalität','Mortalität'],['Morbidität','Morbidität'],['HrQoL','HrQoL'],['Sicherheit','Sicherheit'],['Nicht zugeordnet','Nicht zugeordnez']], selected: @Endpoint.category)) %></div>
+          <div class="smallbox">Klassifikation</div><div class="smallbox"><%= ep.select(:classification , options_for_select([['primär','primär'],['sekundär','sekundär'],['tertiär','tertiär'],['explorativ','explorativ'],['Nicht angegeben','nicht angegeben']], selected: @Endpoint.classification)) %></div>
+          <div class="smallbox">Zur Nutzenbewertung herangezogen</div><div class="smallbox"> <%=  ep.check_box :herangezogen %> </div>
+          <div class="smallbox">Anmerkung</div><div class="smallbox"> <%=  ep.text_area :anmerkung %> </div>
+
+          <%= ep.submit "save Endpoint"%>
+          <% end %>
+        </section>
+

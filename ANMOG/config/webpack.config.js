@@ -1,11 +1,15 @@
 // Example webpack configuration with asset fingerprinting in production.
 'use strict';
 var path = require('path');
+
+
+
+
 var webpack = require('webpack');
 var StatsPlugin = require('stats-webpack-plugin');
 
 // must match config.webpack.dev_server.port
-var devServerPort = 3808;
+var devServerPort = 3000;
 
 // set NODE_ENV=production on the environment to add asset fingerprints
 var production = process.env.NODE_ENV === 'production';
@@ -82,10 +86,11 @@ if (production) {
   );
 } else {
   config.devServer = {
+   // host: '192.168.7.250',
     port: devServerPort,
     headers: { 'Access-Control-Allow-Origin': '*' }
   };
-  config.output.publicPath = '//localhost:' + devServerPort + '/webpack/';
+  config.output.publicPath = 'https://192.168.7.250:' + devServerPort;
   // Source maps
   config.devtool = 'cheap-module-eval-source-map';
 }

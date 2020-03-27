@@ -1,0 +1,463 @@
+<style>
+  .box {
+       float: left;
+       width: 49%;
+       margin-right: 1%;
+       box-sizing: border-box;
+  }
+.casing {
+     float: left;
+     width: 100%;
+     margin-left: 1%;
+}
+</style>
+
+<section>
+    <nav class="navbar navbar-default">
+	<div class="container-fluid">
+	    <div class="navbar-header">
+		<a class="navbar-brand" href="#">SKC AMNOG</a>
+	    </div>
+	    <ul class="nav navbar-nav">
+		<li><a href="../dashboard">Newsfeed</a></li>
+                <li><a href="../mains">Datenbank</a></li>
+                <li><a href="../mains/show">Suche</a></li>
+       		<li><a href="../endpoints/show">EP-Suche</a></li>
+                <li class="active"><a href="../main/show">Datenverwaltung</a></li>
+                <li> <%= link_to "Ausloggen", destroy_skc_session_path, method: :delete %></li>
+     	    </ul>
+        </div>
+    </nav>
+</section>
+
+<section class="casing">
+	<h2>Dateneingabe</h2>
+	  <div class="hbox">
+	     <div class="box">Verfahren :  <%= link_to "Neu",  new_main_path %></div>
+             <div class="box">Population für Nutzenbewertungen  :  <%= link_to "Neu",  new_iqsubgroup_path %></div>
+             <div class="box">Studie :  <%= link_to "Neu",  new_study_path %></div>
+             <div class="box">Population für Beschluss :  <%= link_to "Neu",  new_gbasubgroup_path %></div>
+             <div class="box">Studienarm :  <%= link_to "Neu",  new_study_arm_path %></div>
+             <div class="box">Jahrestherapiekosten :  <%= link_to "Neu",  new_jtkak_path %></div>
+             <div class="box">Endpunkt :  <%= link_to "Neu",  new_endpoint_path %></div>
+             <div class="box">Anmerkungen zu den Preisen :  <%= link_to "Neu",  new_preis_anmerkung_path %></div>
+             <div class="box">Population für Dossiers :  <%= link_to "Neu",  new_subgroup_path %></div>
+	  </div>
+</section>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"/>
+
+<div class="casing">
+	<h2>Datenverwaltung</h2>
+</div>
+
+<div style="text-align:center">
+  <ul class="nav nav-tabs">
+   <li class="<%= 'active' if params[:action] == 'verfahren' %>"><a href="#verfahren" data-toggle="tab">Verfahren</a></li>
+   <li><a href="#studie" data-toggle="tab">Studie</a></li>
+   <li><a href="#studienarm" data-toggle="tab">Studienarm</a></li>
+   <li><a href="#endpunkt" data-toggle="tab">Endpunkt</a></li>
+   <li><a href="#pu" data-toggle="tab">Patientenpopulation Dossier</a></li>
+   <li><a href="#iqwig" data-toggle="tab">Initiale Nutzenbewertung</a></li>
+   <li><a href="#gba" data-toggle="tab">Patientenpopulation Beschluss</a></li>
+   <li><a href="#schiedsspruch" data-toggle="tab">Schiedsprüche</a></li>
+   <li><a href="#preis" data-toggle="tab">Preise</a></li>
+   <li><a href="#Jtkakt" data-toggle="tab">JTK (Aktuell)</a></li>
+   <li><a href="#Jtkpvh" data-toggle="tab">JTK (Preisverhandlung)</a></li>
+   <li><a href="#Jtkgba" data-toggle="tab">JTK (Beschluss)</a></li>
+   <li><a href="#preis_anmerkung" data-toggle="tab">Preisanmerkung</a></li>
+
+  </ul>
+</div>
+
+<div class="tab-content">
+<div class="tab-pane active" id="verfahren">
+<ul class="casing">
+  <section class="box">
+    <h3>Verfahren</h3>
+    <table class="table table-bordered table-striped">
+	<thead>
+	    <tr>
+		<th>ID</th>
+		<th>Verfahrensnummer</th>
+		<th>Wirkstoff</th>
+		<th>Optionen</th>
+	    </tr>
+	</thead>
+	<tbody>
+            <tr>
+		 <% @main_delete.each do |del| %>
+		<td><span><%= del.id %></span<></td>    
+  		<td><span><%= del.gba_number %></span></td>
+                <td><span><%= del.drug_name %></span></td>
+  		<td><%= link_to "Bearbeiten", edit_main_path(del.id) %>
+		<%= link_to "Löschen", del, method: :delete, data: { confirm: "Sind sie sich sicher ?" } %></td>
+	    </tr>
+           <% end %>
+	</tbody>
+    </table>
+  </section>
+</ul>
+</div>
+
+<div class="tab-pane" id="gba">
+<ul class="casing">
+  <section class="box">
+  <h3>Beschlussfassungen</h3>
+    <table class="table table-bordered table-striped">
+	<thead>
+	    <tr>
+		<th>ID</th>
+		<th>Verfahrensnummer</th>
+		<th>Name</th>
+ 		<th>Optionen</th>
+	    </tr>
+	</thead>
+	<tbody>
+	    <tr>
+                 <% @gba_delete.each do |gba| %>
+                <td><span><%= gba.id %></span<></td>
+                <td><span><%= gba.verfahrensnummer %></span></td>
+                <td><span><%= gba.subgroup_name %></span></td>
+                <td><%= link_to "Bearbeiten", edit_gbasubgroup_path(gba.id) %>
+		<%= link_to "Löschen", gbasubgroup_path(gba.id) , method: :delete , data: { confirm: "Sind sie sich sicher ?" } %></td>
+
+	    </tr>
+	    <% end %>
+	</tbody>
+    </table>
+</section>
+</ul>
+</div>
+
+<div class="tab-pane" id="pu">
+<ul class="casing">
+  <section class="box">
+    <h3>Dossiers</h3>
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Verfahrensnummer</th>
+                <th>Name</th>
+                <th>Optionen</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                 <% @pc_delete.each do |pc| %>
+                <td><span><%= pc.id %></span<></td>
+                <td><span><%= pc.verfahrensnummer %></span></td>
+                <td><span><%= pc.subgroup_name %></span></td>
+                <td><%= link_to "Bearbeiten", edit_subgroup_path(pc.id) %>
+		<%= link_to "Löschen", subgroup_path(pc.id) , method: :delete , data: { confirm: "Sind sie sich sicher ?" } %></td>
+
+            </tr>
+            <% end %>
+        </tbody>
+    </table>
+</section>
+</ul>
+</div>
+
+
+
+
+<div class="tab-pane" id="iqwig">
+<ul class="casing">
+  <section class="box">
+    <h3>Nutzenbewertungen</h3>
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Verfahrensnummerr</th>
+                <th>Name</th>
+                <th>Optionen</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                 <% @iq_delete.each do |iq| %>
+                <td><span><%= iq.id %></span<></td>
+                <td><span><%= iq.verfahrensnummer %></span></td>
+                <td><span><%= iq.subgroup_name %></span></td>
+                <td><%= link_to "Bearbeiten", edit_iqsubgroup_path(iq.id) %>
+		<%= link_to "Löschen", iqsubgroup_path(iq.id) , method: :delete , data: { confirm: "Sind sie sich sicher ?" } %></td>
+            </tr>
+            <% end %>
+        </tbody>
+    </table>
+</section>
+</ul>
+</div>
+
+
+<div class="tab-pane" id="studie">
+<ul class="casing">
+<section class="box">
+    <h3>Studien</h3>
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Studienbezeichnung</th>
+                <th>Studientyp</th>
+                <th>Optionen</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                 <% @studie_delete.each do |st| %>
+                <td><span><%= st.id %></span<></td>
+                <td><span><%= st.bezeichnung %></span></td>
+                <td><span><%= st.studien_typ %></span></td>
+                <td><%= link_to "Bearbeiten", edit_studies_path(st.id)%>
+		<%= link_to "Löschen", studies_path(st.id) , method: :delete , data: { confirm: "Are you sure ?" } %> </td>
+            </tr>
+            <% end %>
+        </tbody>
+    </table>
+</section>
+</ul>
+</div>
+
+
+<div class="tab-pane" id="endpunkt">
+<ul class="casing">
+<section class="box">
+    <h3>Endpunkte</h3>
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Bezeichnung</th>
+                <th>Studie</th>
+                <th>Optionen</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                 <% @endpunkt_delete.each do |ep| %>
+                <td><span><%= ep.id %></span<></td>
+                <td><span><%= ep.bezeichnung %></span></td>
+		<td><span><%= ep.study %></span></td> 	
+                <td><%= link_to "Bearbeiten", edit_endpoint_path(ep.id) %>
+		<%= link_to "Löschen", endpoint_path(ep.id) , method: :delete , data: { confirm: "Are you sure ?" } %></td>
+            </tr>
+            <% end %>
+        </tbody>
+    </table>
+</section>
+</ul>
+</div>
+
+
+<div class="tab-pane" id="studienarm">
+<section class="box">
+    <h3>Studienarme</h3>
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>ID</th>
+		<th>Studie</th>
+		<th>Studientyp</th>
+                <th>Studienarmbezeichnung</th>
+                <th>Patientenanzahl</th>
+                <th>Optionen</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                 <% @studiearm_delete.each do |sa| %>                
+		<td><span><%= sa.id %></span></td>
+		<td><span><%= sa.stud_name %></span></td>
+		<td><span><%= sa.controlled_intervention %></span<></td>
+                <td><span><%= sa.bezeichnung %></span></td>
+                <td><span><%= sa.number_patient %></span></td>
+                <td><%= link_to "Bearbeiten", edit_study_arm_path(sa.id) %>
+		<%= link_to "Löschen", study_arm_path(sa.id) , method: :delete , data: { confirm: "Are you sure ?" } %></td>
+            </tr>
+            <% end %>
+        </tbody>
+    </table>
+</section>
+</ul>
+</div>
+
+
+<div class="tab-pane" id="schiedsspruch">
+<ul class="casing">
+<section class="box">
+   <h3>Schiedssprüche</h3>
+   <div class = "well">
+   <%= form_for :Schiedsspruch , :url =>{:controller => "schiedsspruch" ,:action => "create"} , :html => {:class => "nifty_form"}  do |f| %>
+     <div><%= f.hidden_field :date , :value => Time.now%> </div>
+     <div class="casing"> <%= f.label :Verfahrensnummer %><%= f.number_field :verfahrensnummer %></div>
+     <div class="casing"> <%= f.label :Dateiupload %> <%= f.file_field :attachment , accept: 'csv/csv/textt'%></div>
+      <%= f.submit "Hochladen", class: "btn btn-primary" %>
+   <% end %>
+   </div>
+</section>
+</ul>
+</div>
+
+
+
+<div class="tab-pane" id="preis">
+<ul class="casing">
+<section class="box">
+   <h3>PZN Integration</h3>
+   <div class ="well">
+	<%= form_tag import_pzn_index_path, multipart: true do %>
+	   <%= file_field_tag :file %>
+	   <%= submit_tag "Importiere CSV" %>
+	<% end %>
+   </div>
+
+</section>
+</ul>
+</div>
+
+<div class="tab-pane" id="Jtkakt">
+<ul class="casing">
+  <section class="box">
+    <h3>Jahrestherapiekosten (Aktuell)</h3>
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>Verfahren</th>
+                <th>Subgruppe</th>
+		<th>PZN</th>
+		<th>Dosierung</th>
+                <th>Zuweisung</th>
+                <th>Jahrestherapiekosten</th>
+		<th>Optionen</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                 <% @jtkakt.each do |akt| %>
+                <td><span><%= akt.eingetragen %></span<></td>
+                <td><span><%= akt.subgruppe %></span></td>
+		<td><span><%= akt.pzn %></span></td>
+                <td><span><%= akt.dosierung %></span></td>
+		<td><span><%= akt.zuweisung %></span></td>
+		<td><span><%= akt.jtk_apu_netto  %></span></td>
+		
+                <td><%= link_to "Bearbeiten", edit_jtkakt_path(akt.id) %>
+		    <%= link_to "Löschen", jtkakt_path(akt.id) , method: :delete , data: { confirm: "Sind sie sich sicher ?" } %></td>
+
+            </tr>
+            <% end %>
+        </tbody>
+    </table>
+</section>
+</ul>
+</div>
+
+<div class="tab-pane" id="Jtkpvh">
+<ul class="casing">
+  <section class="box">
+    <h3>Jahrestherapiekosten (nach der Preisverhandlung)</h3>
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>Verfahren</th>
+                <th>Subgruppe</th>
+                <th>PZN</th>
+                <th>Dosierung</th>
+                <th>Zuweisung</th>
+                <th>Jahrestherapiekosten</th>
+                <th>Optionen</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                 <% @jtkpvh.each do |pvh| %>
+                <td><span><%= pvh.eingetragen %></span<></td>
+                <td><span><%= pvh.subgruppe %></span></td>
+                <td><span><%= pvh.pzn %></span></td>
+                <td><span><%= pvh.dosierung %></span></td>
+                <td><span><%= pvh.zuweisung %></span></td>
+                <td><span><%= pvh.jtk_apu_netto  %></span></td>
+
+                <td><%= link_to "Bearbeiten", edit_jtkpvh_path(pvh.id) %>
+		    <%= link_to "Löschen", jtkpvh_path(pvh.id) , method: :delete , data: { confirm: "Sind sie sich sicher ?" } %></td>
+
+            </tr>
+            <% end %>
+        </tbody>
+    </table>
+</section>
+</ul>
+</div>
+
+<div class="tab-pane" id="Jtkgba">
+<ul class="casing">
+  <section class="box">
+    <h3>Jahrestherapiekosten (Beschluss)</h3>
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>Verfahren</th>
+                <th>Subgruppe</th>
+                <th>PZN</th>
+                <th>Dosierung</th>
+                <th>Zuweisung</th>
+		<th>Jahrestherapiekosten (Brutto)</th>	
+                <th>Jahrestherapiekosten (Netto)</th>
+                <th>Optionen</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                 <% @jtkgba.each do |gba| %>
+                <td><span><%= gba.eingetragen %></span<></td>
+                <td><span><%= gba.subgruppe %></span></td>
+                <td><span><%= gba.pzn %></span></td>
+                <td><span><%= gba.dosierung %></span></td>
+                <td><span><%= gba.zuweisung %></span></td>
+		<td><span><%= gba.jtk_gkv %></span></td>
+                <td><span><%= gba.jtk_apu_netto  %></span></td>
+
+                <td><%= link_to "Bearbeiten", edit_jtkgba_path(gba.id) %>
+		    <%= link_to "Löschen", jtkgba_path(gba.id) , method: :delete , data: { confirm: "Sind sie sich sicher ?" } %></td>
+
+            </tr>
+            <% end %>
+        </tbody>
+    </table>
+</section>
+</ul>
+</div>
+<div class="tab-pane" id="preis_anmerkung">
+<ul class="casing">
+  <section class="box">
+    <h3>Preisanmerkungen</h3>
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>Verfahren</th>
+                <th>Anmerkung</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                 <% @preis_anmerkung.each do |pa| %>
+                <td><span><%= pa.verfahrensnummer %></span<></td>
+                <td><span><%= pa.anmerkung %></span></td>
+                <td><%= link_to "Bearbeiten", edit_preis_anmerkung_path(pa.id) %>
+		    <%= link_to "Löschen", preis_anmerkung_path(pa.id) , method: :delete , data: { confirm: "Sind sie sich sicher ?" } %></td>
+
+            </tr>
+            <% end %>
+        </tbody>
+    </table>
+</section>
+</ul>
+</div>
+</div>

@@ -1,0 +1,86 @@
+<style>
+.box {
+     float: left;
+     width: 98%;
+     margin-right: 0.5%;
+     margin-left: 0.5%;
+     padding: 2px;
+     box-sizing: border-box;
+}
+.smallbox {
+     float: left;
+     width: 45%;
+     padding: 1px;
+     box-sizing: border-box;
+}
+.smallboxen {
+     float: left;
+     width: 38%;
+     padding: 1px;
+     box-sizing: border-box;
+}
+.casing {
+     float: left;
+     width: 100%;
+}
+.holeCasing {
+     float: left;
+     width: 40%;
+     box-sizing: border-box;
+}
+.justCasing {
+     float: left;
+     width: 90%;
+     box-sizing: border-box;
+}
+.just {
+     float: left;
+     width: 50%;
+     box-sizing: border-box;
+}
+</style>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"/>
+
+
+<section>
+  <nav class="navbar navbar-default">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <a class="navbar-brand" href="#">SKC AMNOG</a>
+      </div>
+      <ul class="nav navbar-nav">
+        <li><a href="../dashboard">Newsfeed</a></li>
+        <li><a href="../mains">Datenbank</a></li>
+        <li><a href="../mains/show">Suche</a></li>
+        <li><a href="../endpoints/show">EP-Suche</a></li>
+        <li><a href="../main/show">Datenverwaltung</a></li>
+        <li> <%= link_to "Ausloggen", destroy_skc_session_path, method: :delete %></li>
+      </ul>
+    </div>
+  </nav>
+</section>
+
+    <ul class="casing">
+        <section class="holeCasing">
+          <h3><u>Neuer Endpunkt</u></h3>
+          <h3><u>Endpunkt</u></h3>
+          <%= form_for :Endpoints, :url => {:controller => "endpoints" , :action => "create"}, :html => {:class => "nifty_form"} do |ep| %>
+          <% @skc = current_skc %>
+          <%= ep.hidden_field :id , :value => @epcount + (@skc.id * 10)%>
+          <%= ep.hidden_field :updated_by , :value => @skc.email %>
+          <%= ep.hidden_field :updated_at , :value => Time.now %>
+          <%= ep.hidden_field :created_at , :value => Time.now %>
+          <div class="smallbox">Studienbezeichnung</div><div class="smallbox"><%= ep.collection_select(:study, Studies.all.order('id DESC'), :bezeichnung, :bezeichnung , prompt: true) %> </div> <br>
+          <div class="smallbox">Endpunktbezeichnung<span title="Endpunkte einer klinischen Studie sind vordefinierte Ereignisse, z. B. das Auftreten eines bestimmten Ereignisses. Im Dossier, Modul 4, Bezeichnung des Endpunktes aus der Operationalisierung übernehmen. "><img src="https://i.ibb.co/jf8KNrr/iconfinder-Info-132643.png"/></span></div><div class="smallbox"> <%=  ep.text_area :bezeichnung %> </div>
+          <div class="smallbox">Instrument<span title="Als Instrumente zählen z. B. Fragebögen oder alles was in der Operationalisierung als solches genannt wurde (KEINE Blutwerte, Röntgenuntersuchungen o. ä.). In der Operationalisierung der einzelnen Endpunkte (Dossier, Modul 4) zu finden."><img src="https://i.ibb.co/jf8KNrr/iconfinder-Info-132643.png"/></span></div><div class="smallbox"><%= ep.text_area :instrument %></div>
+          <div class="smallbox">Kategorie<span title="Insgesamt gibt es die Endpunktkategorien: Morbidität, Mortalität, Lebensqualität und Sicherheit. Im Dossier, Modul 4, unter 'Matrix der Endpunkte' oder unter 'Zusammenfassung der Ergebnisse und Zusatznutzen'. "><img src="https://i.ibb.co/jf8KNrr/iconfinder-Info-132643.png"/></span></div><div class="smallbox"><%= ep.select(:category , options_for_select([['Mortalität','Mortalität'],['Morbidität','Morbidität'],['HrQoL','HrQoL'],['Sicherheit','Sicherheit'],['Nicht zugeordnet','Nicht zugeordnet']])) %></div>
+          <div class="smallbox">Klassifikation<span title="Endpunkte werden fast immer in primäre, sekundäre und tertiäre Endpunkte eingeteilt. Im Dossier, Modul 4, unter 'Charakteristika der in die Bewertung eingeschlossenen Studien…' zu finden."><img src="https://i.ibb.co/jf8KNrr/iconfinder-Info-132643.png"/></span></div><div class="smallbox"><%= ep.select(:classification , options_for_select([['primär','primär'],['sekundär','sekundär'],['tertiär','tertiär'],['explorativ','explorativ'],['nicht angegeben','nicht angegeben']])) %></div>
+         <div class="casing"><div class="smallbox">Zur Nutzenbewertung herangezogen<span title="Angabe welche Endpunkte in der Nutzenbewertung berücksichtigt wurden. Hierfür die initiale Nutzenbewertung öffnen. Bei einer Bewertung durch den G-BA nach 'In der Nutzenbewertung berücksichtigte Endpunkte' suchen. Bei einer IQWiG-Bewertung die Ergebnisse im Text der Fragestellungen durchlesen."><img src="https://i.ibb.co/jf8KNrr/iconfinder-Info-132643.png"/></span></div><div class="smallbox"> <%=  ep.check_box :herangezogen %> </div></div>
+          <div class="smallbox">Anmerkung</div><div class="smallbox"> <%=  ep.text_area :anmerkung %> </div>
+          <%= ep.submit "Endpunkt speichern"%>
+          <% end %>
+        </section>
+

@@ -1,0 +1,61 @@
+<style>
+.box {
+     float: left;
+     width: 98%;
+     margin-right: 0.5%;
+     margin-left: 0.5%;
+     padding: 2px;
+     box-sizing: border-box;
+}
+.smallbox {
+     float: left;
+     width: 45%;
+     padding: 1px;
+     box-sizing: border-box;
+}
+.casing {
+     float: left;
+     width: 100%;
+}
+.holeCasing {
+     float: left;
+     width: 32%;
+    box-sizing: border-box;
+}
+</style>
+     <section class="holeCasing">
+        <h3><u>Studie</u></h3>
+        <%= form_for @Studies do |st| %>
+        <% @skc = current_skc %>
+        <%= st.hidden_field :updated_by , :value => @skc.email %>
+
+        <%= st.hidden_field :updated_at , :value => Time.now %> 
+        <div class="smallbox">Studienbezeichnung</div><div class="smallbox"><%= st.text_field :bezeichnung %></div>
+        <div class="smallbox">Studienname</div><div class="smallbox"><%= st.text_field :studien_name %></div>
+        <div class="smallbox">Clinicaltrials.gov</div><div class="smallbox"><%= st.text_field :clinical %></div>
+        <div class="smallbox">Studientyp</div><div class="smallbox"><%= st.select(:studien_typ , options_for_select([['Pivot-Studie','Pivot-Studie'],['Supportiv','Supportiv']], selected: @Studies.studien_typ))%></div>
+        <div class="smallbox">Sponsor</div><div class="smallbox"><%= st.text_field :sponsor %></div>
+        <div class="smallbox">Phase</div><div class="smallbox"><%= st.text_field :phase %></div>
+        <div class="smallbox">Population</div><div class="smallbox"><%= st.text_area :population %></div>
+	<div class="smallbox">N</div><div class="smallbox"><%= st.number_field :IWT %></div>
+        <div class="smallbox">Efficacy & Safety</div><div class="smallbox"><%= st.check_box :efficacy %></div>
+        <div class="smallbox">Safety</div><div class="smallbox"><%= st.check_box :safety %></div>
+        <div class="smallbox">Dosefinding</div><div class="smallbox"><%= st.check_box :dosefinding %></div>
+        <div class="smallbox">Randomisiert</div><div class="smallbox"><%= st.check_box :randomized %></div>
+        <div class="smallbox">Kontrolliert</div><div class="smallbox"><%= st.check_box :controlled %></div>
+        <div class="smallbox">Multizenter</div><div class="smallbox"><%= st.check_box :multizenter %></div>
+        <div class="smallbox">Multinational</div><div class="smallbox"><%= st.check_box :multinational %></div>
+        <div class="smallbox">Single-Arm</div><div class="smallbox"><%= st.check_box :single_arm %></div>
+        <div class="smallbox">Doppel-Blind</div><div class="smallbox"><%= st.check_box :double_bline %></div>
+        <div class="smallbox">Open-Label</div><div class="smallbox"><%= st.check_box :label %></div>
+        <div class="smallbox">Extension</div><div class="smallbox"><%= st.check_box :extension %></div>
+        <div class="smallbox">Ongoing</div><div class="smallbox"><%= st.check_box :ongoing %></div>
+        <div class="smallbox">Register</div><div class="smallbox"><%= st.check_box :registry %></div>
+        <div class="smallbox">Natural history study(NHS)</div><div class="smallbox"><%= st.check_box :nhs %></div>
+        <div class="smallbox">Randomisierung</div><div class="smallbox"><%= st.text_field :randomization %></div>
+ <div class="smallbox">Evidenzklasse</div><div class="smallbox"><%= st.select(:evidenz, options_for_select([['1a','1a'],['1b','1b'],['1c','1c'],['2a','2a'],['2b','2b'],['3','3'],['4','4'],['5','5']],selected:@Studies.evidenz)) %></div>
+        <div class="smallbox">Anmerkung</div><div class="smallbox"><%= st.text_area :annotation %></div> <br />
+        <%= st.submit "save study"%>
+        <% end %>
+     </section>
+

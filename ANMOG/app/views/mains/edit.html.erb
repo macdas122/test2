@@ -1,0 +1,537 @@
+<style>
+.casing {
+     float: left;
+     width: 55%;
+     padding: 5px;
+     box-sizing: border-box;
+}
+.hole {
+     float: left;
+     width: 100%;
+     margin-right: 1%;
+     box-sizing: border-box;
+}
+.half {
+     float: left;
+     width: 45%;
+     padding: 5px;
+     box-sizing: border-box;
+}
+  .holeBox {
+       float: left;
+       width: 99%;
+       margin-right: 1%;
+       box-sizing: border-box;
+  }
+  .allBox{
+       float: left;
+       width: 99%;
+       margin-right: 1%;
+       padding: 1px;
+       box-sizing: border-box;
+  }
+</style>
+
+<% javascript_include_tag "http://www.google.com/jsapi", "chartkick" %>
+
+
+<section>
+  <nav class="navbar navbar-default">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <a class="navbar-brand" href="#">SKC AMNOG</a>
+      </div>
+      <ul class="nav navbar-nav">
+        <li><a href="../../dashboard">Newsfeed</a></li>
+        <li><a href="../../mains">Datenbank</a></li>
+        <li><a href="../../mains/show">Suche</a></li>
+        <li><a href="../../endpoints/show">EP-Suche</a></li>
+        <li><a href="../../main">Dateneingabe</a></li>
+        <li><a href="../../main/show">Datenverwaltung</a></li>
+        <li> <%= link_to "Log Out", destroy_skc_session_path, method: :delete %></li>
+      </ul>
+    </div>
+  </nav>
+</section>
+
+
+
+
+<section class="holeBox" style="text-align:center">
+  <ul class="nav nav-tabs">
+   <li><a href="#allgemein" data-toggle="tab">Allgemein</a></li>
+   <li><a href="#subgruppen" data-toggle="tab">Subgruppen</a></li>
+   <li><a href="#evidenz" data-toggle="tab">Evidenz</a></li>
+   <li><a href="#preis" data-toggle="tab">Preise</a></li>
+  </ul>
+</section>
+
+<section>
+ <div class="tab-content">
+  <div class="tab-pane" id="preis">
+	<section class="holeBox">
+        <h3>Preise</h3>
+	</section>
+	<% @pzn.each do |pz| %>
+	<% @p = Pzn.where('"pzn" = ?' , pz.pzn).last %>
+	<% @pz = Pzn.where('"pzn" = ?', pz.pzn) %>
+
+	<section class="holeBox">
+	<details>
+	<summary>
+		<h4><u> PZN:<%= pz.pzn %></u></h4>
+	</summary>
+        <table class="table table-bordered table-striped">
+	 <ul>
+          <thead>
+            <tr>
+              <th>Bezeichnungen</th>
+              <th>Daten</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Anbieter</td>
+              <td><%= @p.Anbietername%></td>
+            </tr>
+            <tr>
+              <td>DRF Bezeichnung</td>
+              <td><%= @p.drf_bezeichnung %></td>
+            </tr>
+            <tr>
+              <td>Volumen</td>
+              <td><%= @p.Volumen %><%= pz.Einheit %></td>
+            </tr>
+            <tr>
+              <td>Menge</td>
+              <td><%= @p.Menge %><%= pz.Einheiten %></td>
+            </tr>
+            <tr>
+              <td>Ppu</td>
+              <td><%= @p.ppu %></td>
+            </tr>
+            <tr>
+              <td>NBR</td>
+              <td><%= @p.nbr %></td>
+            </tr>
+            <tr>
+              <td>Erstattungsbetrag</td>
+              <td><%= @p.erstattungsbetrag %></td>
+            </tr>
+            <tr>
+              <td>APU/HAP</td>
+              <td><%= @p.apu_hap %></td>
+            </tr>
+            <tr>
+              <td>taxe_ek</td>
+              <td><%= @p.taxe_ek %></td>
+            </tr>
+            <tr>
+              <td>HR Gesamt</td>
+              <td><%= @p.hr_ges %></td>
+            </tr>
+            <tr>
+              <td>VK Gesamt</td>
+              <td><%= @p.vk_ges %></td>
+            </tr>
+	  </tbody>
+	 </ul>
+	</table>
+	</details>
+        <div>
+          <%= line_chart @pz.order(:created_at).pluck(:created_at, :apu_hap), xtitle: "Datum(MM/JJ)", ytitle: "Preis (APU/HAP)", library:  { hAxis: { format: 'MM/yy' }}%>
+        </div>
+
+	<% end %>
+  </div>
+
+
+
+  <div class="tab-pane active" id="allgemein">
+    <ul>          
+      <div class="half">
+        <h3>Steckbrief</h3>
+        <table class="table table-bordered table-striped">
+          <thead>
+            <tr>
+              <th>Bezeichnungen</th>
+              <th>Daten</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>G-BA Verfahrensnummer</td>
+              <td><%= @mains.gba_number %></td>
+            </tr>
+            <tr>
+              <td>Wirkstoff</td>
+              <td><%=  @mains.drug_name %></td>
+            </tr>
+            <tr>
+              <td>Handelsname</td>
+              <td><%= @mains.brand_name %></td>
+            </tr>
+            <tr>
+              <td>pharm. Untenehmen</td>
+              <td><%= @mains.manufacturer %></td>
+            </tr>
+            <tr>
+              <td>Orphan Drug</td>
+              <td><%= @mains.orphan_drug %></td>
+            </tr>
+            <tr>
+              <td>Anwendungsgebiet</td>
+              <td><%= @mains.field_of_application %></td>
+            </tr>
+	    <tr>
+	      <td>Indikation</td>
+	      <td><%= @mains.indication  %></td>	    
+            </tr>
+            <tr>
+              <td>Label</td>     
+              <td><%= @mains.label %></td>     
+            </tr>
+            <tr>
+              <td>Grund der Einreichung</td>     
+              <td>
+	          <%if @mains.erst_einreichung %>Ersteinreichung <%end%>
+		  <%if @mains.new_field %>neues Anwendugsgebiet <%end%>
+                  <%if @mains.science %>/Erneute Nutzenbewertung auf Antrag des pharm. Unternehmers nach § 14 (5. Kap. § 1 Abs. 2 Nr. 6 VerfO) <%end%>
+                  <%if @mains.basic_evidence %>/Erneute Nutzenbewertung §13 (neue wissenschaftliche Erkenntnisse) <%end%>
+                  <%if @mains.expired_time %>/Neubewertung nach Fristablauf<%end%>
+                  <%if @mains.over_one_million %>/Überschreitung der 1 Mio. € Grenze<%end%>
+                  <%if @mains.exceedance_money %>/Überschreitung der 50 Mio. € Grenze<%end%>
+                  <%if @mains.lors_of_odd %>/Aufhebung des Orphan Drug-Status<%end%>
+		</td>     
+            </tr>
+	    <tr>
+		<td>Schiedsspruch</td>
+		<td></td>
+            </tr>
+          </tbody>
+       </table>
+    </div>
+    <div class="half">
+        <h3>Fristen</h3>
+        <table class="table table-bordered table-striped">
+          <thead>
+            <tr>
+              <th>Bezeichnungen</th>
+              <th>Daten</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Beginn des Verfahrens</td>
+              <td><%= @mains.start_procedure %></td>
+            </tr>
+            <tr>
+              <td>Beschlussfassung</td>
+              <td><%=  @mains.end_procedure %></td>
+            </tr>
+            <tr>
+              <td>Befristung</td>
+              <td><%= @mains.befristung %></td>
+            </tr>
+            <tr>
+              <td>Verfahrensstatus</td>
+              <td><%= @mains.status %></td>
+            </tr>
+            <tr>
+              <td>Link zum G-BA Eintrag</td>
+              <td><%= link_to "Hier", "https://www.g-ba.de/bewertungsverfahren/nutzenbewertung/#{@mains.gba_number}/", :target => "_blank" %></td>
+            </tr>
+          </tbody>
+       </table>  
+
+	
+	<h3>Jahrestherapiekosten</h3>
+        <table class="table table-bordered table-striped">
+          <thead>
+            <tr>
+              <th>Zeitpunkt</th>
+        <table class="table table-bordered table-striped">
+          <thead>
+            <tr>
+              <th>Zeitpunkt</th>
+              <th>Jahrestherapiekosten (netto)</th>
+	      <th>Gesamtrabatt (auf Basis Jahrestherapiekosten)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>G-BA Beschluss</td>
+              <% if (@pricegb.min != @pricegb.max)  %>
+	      <td><%=  @pricegb.min.round(2) %> € - <%=  @pricegb.max.round(2) %>€</td>
+              <% else %>
+              <td> <%= @pricegb.min.round(2) %> € </td>
+              <% end %>
+	      <td> - </td>
+            </tr>
+            <tr>
+              <td>Nach Preisverhandlung</td>
+	      <% if (@pricepv.min != @pricepv.max) %>
+	      <td><%= @pricepv.min.round(2) %> € - <%= @pricepv.max.round(2) %> €</td>
+	      <% else %>
+	      <td><%= @pricepv.max.round(2) %>€</td>
+              <% end %>
+	      <% if @pricegb.min != 0 %>
+	      <td> <%=((1 - (@pricepv.min.round(2) /  @pricegb.min.round(2)))*100).round(2) %> %</td>
+	      <% else %>
+	      <td> n.a. </td>
+	      <% end %>	
+            </tr>
+            <tr>
+              <td>Aktuell</td>
+	      <% if (@price.min != @price.max)  %>
+	      <td><%=@price.min.round(2) %> € - <%= @price.max.round(2) %> €</td>
+	      <% else %>
+	      <td> <%= @price.min.round(2) %>€ </td>
+	      <% end %>
+	      <% if @price.min != 0 %>
+	      <td><%=((1 -  (@price.min.round(2) /  @pricegb.min.round(2)))*100).round(2) %> %</td>
+	      <% else %>
+	      <td> n.a </td>
+	      <% end %>
+	    </tr>
+	    <tr>
+	      <td>Anmerkung</td>
+	      <td><%@anmerkung = PreisAnmerkung.where('"verfahrensnummer" = ?' , @mains.gba_number).first %>
+		  <% if @anmerkung.present? %>
+			<%= @anmerkung.anmerkung %> <%end%></td> 
+            </tr>
+          </tbody>
+       </table>
+    </div>
+
+
+
+
+    <div class="hole">
+
+       <h3>Verfahren des Wirkstoffes</h3>
+       <table class="table table-bordered table-striped">
+          <thead>
+            <tr>
+              <th>Verfahrensnummer</th>
+              <th>Handelsname</th>
+	      <th>Anwendungsgebiet</th>
+	      <th>Indikation</th>
+	      <th>Grund der Einreichung</th>
+	      <th>Beginn des Verfahrens</th>
+	      <th>Gesamtrabatt (nach Abschluss der Preisverhandlungen (Netto)(Pro Packung *test))</th>
+	      <th>Link</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+	      <% @wirkstoff.order(:gba_number).each do |w| %>
+              <td><%= w.gba_number %></td>
+              <td><%= w.brand_name %></td>
+              <td><%= w.field_of_application %></td>
+	      <td><%= w.indication %></td>
+	      <td><%if w.erst_einreichung %>Ersteinreichung<%end%>
+		  <%if w.new_field %>neues Anwendungsgebiet <%end%>
+                  <%if w.science %>/Erneute Nutzenbewertung auf Antrag des pharm. Unternehmers nach § 14 (5. Kap. § 1 Abs. 2 Nr. 6 VerfO) <%end%>
+                  <%if w.basic_evidence %>/Erneute Nutzenbewertung §13 (neue wissenschaftliche Erkenntnisse) <%end%>
+                  <%if w.expired_time %>/Neubewertung nach Fristablauf<%end%>
+                  <%if w.over_one_million %>/Überschreitung der 1 Mio. € Grenze<%end%>
+                  <%if w.exceedance_money %>/Überschreitung der 50 Mio. € Grenze<%end%>
+                  <%if w.lors_of_odd %>/Aufhebung des Orphan Drug-Status<%end%>
+	      </td>
+              <td><%= w.start_procedure %></td>
+	      <td><% @r = Jtkpvh.where('"eingetragen" = ?' , w.gba_number.to_s).first %><% if @r != nil %><%= (@r.rabatt_ges*100).round(2) %>%<% end %></td>
+              <td><%= link_to "Verfahren anzeigen" , edit_mains_path(w.id) %></td>
+            </tr>
+	    <% end %>
+          </tbody>
+       </table>
+    </div>
+   </ul>
+  </div>
+ 
+
+  <div class="tab-pane" id="subgruppen">
+  <ul>
+
+  <section class="hole">
+    <h2> Patientenpopulation(en) Dossier : <%= @pc.count %> </h2>
+    <table class="table table-bordered table-striped" >
+        <thead>
+            <tr>
+                <th>Bezeichnung</th>
+                <th>ZVT
+                  <span title="Zwecks Vergleichstherapie/Appropriate Comparison Therapy">
+                  <img src="https://i.ibb.co/jf8KNrr/iconfinder-Info-132643.png"/>
+                  </span>
+		</th>
+		<th>ZVT Status</th>
+                <th>ITC/NMA/MAIC
+		  <span title="Indirect Treatment Comparison/Indirekter Vergleich. Network-Meta Analysis/Netwerz-Metaanalyse. Matching Adjusted Indirect Comparison/Matching-adjustierter Indirekter Vergleich.">
+  		  <img src="https://i.ibb.co/jf8KNrr/iconfinder-Info-132643.png"/>
+		  </span>
+		</th>
+                <th>Wahrscheinlichkeit</th>
+                <th>Zusatznutzen</th>
+		<th>Studie Nr.1</th>
+		<th>Studie Nr.2</th>
+		<th>Studie Nr.3</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% @pc.each do |pc| %>
+                <tr>
+                    <td><%= pc.subgroup_name %></td>
+                    <td><%= pc.act  %></td>
+		    <td><%= pc.zvt_status %></td>
+                    <td><%= pc.itc %>/<%= pc.nma %>/<%= pc.maic %></td>
+                    <td><%= pc.wahrscheinlichkeit %></td>
+                    <td><%= pc.benefit %></td>
+                    <td><%= pc.studie_eins %></td>
+                    <td><%= pc.studie_zwei %></td>
+                    <td><%= pc.studie_drei %></td>
+                </tr>
+            <% end %>
+        </tbody>
+    </table>    
+
+    <h2> Patientenpopulation(en) initiale Nutzenbewertung : <%= @iq.count %> </h2>
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>Bezeichnung</th>
+                <th>ZVT
+                  <span title="Zwecks Vergleichstherapie/Appropriate Comparison Therapy">
+                  <img src="https://i.ibb.co/jf8KNrr/iconfinder-Info-132643.png"/>
+                  </span>
+		</th>
+		<th>ZVT Status</th>
+                <th>ITC/NMA/MAIC
+                  <span title="Indirect Treatment Comparison/Indirekter Vergleich. Network-Meta Analysis/Netwerz-Metaanalyse. Matching Adjusted Indirect Comparison/Matching-adjustierter Indirekter Vergleich.">
+                  <img src="https://i.ibb.co/jf8KNrr/iconfinder-Info-132643.png"/>
+                  </span>
+		</th>
+                <th>Wahrscheinlichkeit</th>
+                <th>Zusatznutzen</th>
+                <th>Studie Nr.1</th>
+                <th>Studie Nr.2</th>
+                <th>Studie Nr.3</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% @iq.each do |pc| %>
+                <tr>
+                    <td><%= pc.subgroup_name %></td>
+                    <td><%= pc.act  %></td>
+		    <td><%= pc.zvt_status %></td>
+                    <td><%= pc.itc %>/<%= pc.nma %>/<%= pc.maic %></td>
+                    <td><%= pc.wahrscheinlichkeit %></td>
+                    <td><%= pc.benefit %></td>
+                    <td><%= pc.studie_eins %></td>
+                    <td><%= pc.studie_zwei %></td>
+                    <td><%= pc.studie_drei %></td>
+                </tr>
+            <% end %>
+        </tbody>
+    </table>
+
+    <h2>Patientenpopulation(en) Beschluss : <%= @gba.count %> </h2>
+	<table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>Bezeichnung</th>
+		<th>ZVT
+                  <span title="Zwecks Vergleichstherapie/Appropriate Comparison Therapy">
+                <th>ZVT status</th>
+		<th>ITC/NMA/MAIC
+                  <span title="Indirect Treatment Comparison/Indirekter Vergleich. Network-Meta Analysis/Netwerz-Metaanalyse. Matching Adjusted Indirect Comparison/Matching-adjustierter Indirekter Vergleich.">
+                  <img src="https://i.ibb.co/jf8KNrr/iconfinder-Info-132643.png"/>
+                  </span>
+		</th>
+                <th>Population</th>
+                <th>Wahrscheinlichkeit</th>
+                <th>Zusatznutzen</th>
+                <th>Studie Nr.1</th>
+                <th>Studie Nr.2</th>
+                <th>Studie Nr.3</th>
+            </tr>
+        </thead>
+	<tbody>
+            <% @gba.each do |pc| %>
+                <tr>
+                    <td><%= pc.subgroup_name %></td>
+		    <td><%= pc.zvt_name_eins %></td>
+		    <td><%= pc.zvt_status %></td>
+                    <td><%= pc.itc %>/<%= pc.nma %>/<%= pc.maic %></td>
+                    <td><%= pc.population_min %><%= if pc.population_max.present? then  -  pc.population_max end%></td>
+                    <td><%= pc.wahrscheinlichkeit %></td>
+                    <td><%= pc.benefit %></td>
+		    <td><%= pc.studie_eins %></td>
+                    <td><%= pc.studie_zwei %></td>
+                    <td><%= pc.studie_drei %></td>
+                </tr>
+            <% end %>
+        </tbody>
+      </table>
+    </section>
+   </ul>
+  </div>
+
+  <div class="tab-pane" id="evidenz">
+    <ul class="hole">
+	<h3>Evidenz</h3>
+	<%@studies.each do |st| %>
+	<%@stud = Studies.where("bezeichnung = ?", st) %>
+        <%@id = Endpoint.where("study = ?", st).order(:category)%>
+          <% @stud.each do |stu| %>
+       
+	  <table class="table table-bordered table-striped">
+          <thead>
+              <tr>
+                  <th>Bezeichnung</th>
+                  <th>Studientyp</th>
+                  <th>Population</th>
+                  <th>Evidenz</th>
+                  <th>Phase</th>
+                  <th>Anmerkung</th>
+              </tr>
+          </thead>
+          <tbody>
+                  <tr>
+                     <td><%= stu.bezeichnung %> </td>
+                     <td><%= stu.studien_typ %> </td>
+                     <td><%= stu.population %> </td>
+                     <td><%= stu.evidenz %> </td>
+                     <td><%= stu.phase %> </td>
+                     <td><%= stu.annotation %> </td>
+                  </tr>
+        </tbody>
+        <% end %>
+   	<h4>Studie und Endpunkte</h4>
+	<table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>Bezeichnung</th>
+                <th>Kategorie</th>
+                <th>Klassifikation</th>
+                <th>Instrument</th>
+                <th>Zur Nutzenbewertung herangezogen</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% @id.each do |e| %>
+                <tr>
+		   <td><%= e.bezeichnung %> </td>
+                   <td><%= e.category %> </td>
+                   <td><%= e.classification %> </td>
+                   <td><%= e.instrument %> </td>
+                   <td><% if e.herangezogen.present? == e.herangezogen%><%if e.herangezogen %>Ja<%end%><%end%></td>			
+                </tr>
+            <% end %>
+        </tbody>
+
+	<% end %>
+    </ul>
+   </div>
+  </div>
+</section>

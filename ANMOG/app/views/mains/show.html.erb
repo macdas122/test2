@@ -6,6 +6,12 @@
      padding: 6px;
      box-sizing: border-box;
 }
+.casing {
+     float: left;
+     width: 99%;
+     box-sizing: border-box;
+}
+
 .Box {
      float: left;
      width: 40%;
@@ -15,47 +21,57 @@
 }
 </style>
 
+<% javascript_include_tag "http://www.google.com/jsapi", "chartkick" %>
+
+
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <section>
   <nav class="navbar navbar-default">
     <div class="container-fluid">
       <div class="navbar-header">
-        <a class="navbar-brand" href="#">Skc Anmog</a>
+        <a class="navbar-brand" href="#">SKC AMNOG</a>
       </div>
       <ul class="nav navbar-nav">
         <li><a href="../dashboard">Newsfeed</a></li>
-        <li><a href="../mains">Data Base</a></li>
-        <li class="active"><a href="show">Search</a></li>
-        <li><a href="../main">Insert</a></li>
-        <li><a href="#">Contact</a></li>
-        <li> <%= link_to "Log Out", destroy_skc_session_path, method: :delete %></li>
+        <li><a href="../mains">Datenbank</a></li>
+        <li class="active"><a href="show">Suche</a></li>
+        <li><a href="../endpoints/show">EP-Suche</a></li>
+        <li><a href="../main/show">Datenverwaltung</a></li>
+        <li> <%= link_to "Ausloggen", destroy_skc_session_path, method: :delete %></li>
       </ul>
     </div>
   </nav>
 </section>
 <header class="holeBox">
-    <h1 class="h2">Search</h1>
-    //TODO dynamische Graphen
+    <h1 class="h2">Suche</h1>
 </header>
-<section class="holeBox">
+
+
+
+ <section class="casing">
   <section class="Box">
-    <%= pie_chart @result.count %>
+    <%= pie_chart @result.count , library: {legend: {position: "left"}}%>
+     <h4 class="h4" align="center">Anwendungsgebiete der Verfahren</h4> 
   </section>
+  
   <section class="Box">
-    <%= pie_chart @orphan.count %>
+    <%=  pie_chart @orphan.count %>
+    <h4 class="h4" align="center">Orphan-Status der Verfahren</h4>
   </section>
-</section>
+ </section>
+<h1 class="h3">Ergebnisse: <%= @mains.length %></h1>
+      <%=  button_to "Export", export_mains_path(@test)%>
 <section class="holeBox">
   <section class="search-form">
       <%= form_for :mains, method: :get do |f| %>
-          <div class="input-group input-group-lg">
+          <div class="input-group input-group-sm">
               <%= label_tag :keywords, nil, class: "sr-only" %>
               <%= text_field_tag :keywords, nil,
-                  placeholder:  "Drug Name, Brand Name, Manufacturer, Field of Application, or Orphan Drug",
-                  class: "form-control input-lg" %>
+                  placeholder:  "Wirkstoffname, Handelsname, pharm. Unternehmen, Anwendungsgebiet und Orphan Drug ",
+                  class: "form-control input-sm" %>
                 <span class="input-group-btn">
-                      <%= submit_tag "Find",
-                          class: "btn btn-primary btn-lg" %>
+                      <%= submit_tag "Suchen",
+                          class: "btn btn-info " %>
                       </span>
           </div>
         <% end %>
@@ -65,21 +81,20 @@
 
 <section class="holeBox">
   <section class="search-results">
-      <header>
-          <h1 class="h3">Results : <%= @mains.length %></h1>
-      </header>
-      <table class="table table-striped" border=1>
+      <table class="table table-bordered table-striped">
           <thead>
               <tr>
-                <th>Number</th>
-                <th>Drug Name</th>
-                <th>Brand Name</th>
-                <th>Manufacturer</th>
-                <th>Indication</th>
-                <th>Field of Application</th>
-                <th>Orphan Drug</th>
-                <th>Subgroup(s)</th>
-              </tr>
+                <th>Verfahrensnummer</th>
+                <th>Wirkstoff</th>
+                <th>Handelsname</th>
+                <th>pharm. Unternehmen</th>
+                <th>Indikation</th>
+                <th>Anwendungsgebiet</th>
+                <th>Orphan-Status</th>
+                <th>Subgruppe(n) Dossier</th>
+		<th>Subgruppe(n) G-BA</th>
+                <th>Ansicht</th>
+	     </tr>
           </thead>
           <tbody>
               <% @mains.each do |main| %>
@@ -91,10 +106,13 @@
                     <td><%= main.indication %></td>
                     <td><%= main.field_of_application %></td>
                     <td><%= main.orphan_drug %></td>
-                    <td><%= main.subgroups %></td>
+		    <td><%= Subgroup.where("verfahrensnummer = %s", main.gba_number).count%></td>
+		    <td><%= Gbasubgroup.where("verfahrensnummer = %s", main.gba_number).count %></td>
+		    <td><%= link_to "Übersicht anzeigen" , edit_mains_path(main.id) %></td>
                   </tr>
                 <% end %>
           </tbody>
       </table>
   </section>
 </section>
+

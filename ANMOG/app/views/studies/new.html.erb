@@ -1,0 +1,109 @@
+<style>
+.box {
+     float: left;
+     width: 98%;
+     margin-right: 0.5%;
+     margin-left: 0.5%;
+     padding: 2px;
+     box-sizing: border-box;
+}
+.smallbox {
+     float: left;
+     width: 45%;
+     padding: 1px;
+     box-sizing: border-box;
+}
+.smallboxen {
+     float: left;
+     width: 38%;
+     padding: 1px;
+     box-sizing: border-box;
+}
+.casing {
+     float: left;
+     width: 100%;
+}
+.holeCasing {
+     float: left;
+     width: 40%;
+     box-sizing: border-box;
+}
+.justCasing {
+     float: left;
+     width: 90%;
+     box-sizing: border-box;
+}
+.just {
+     float: left;
+     width: 50%;
+     box-sizing: border-box;
+}
+</style>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"/>
+
+
+<section>
+  <nav class="navbar navbar-default">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <a class="navbar-brand" href="#">SKC AMNOG</a>
+      </div>
+      <ul class="nav navbar-nav">
+        <li><a href="../dashboard">Newsfeed</a></li>
+        <li><a href="../mains">Datenbank</a></li>
+        <li><a href="../mains/show">Suche</a></li>
+        <li><a href="../endpoints/show">EP-Suche</a></li>
+        <li class="active"><a href="../main">Dateneingabe</a></li>
+        <li><a href="../main/show">Datenverwaltung</a></li>
+        <li> <%= link_to "Ausloggen", destroy_skc_session_path, method: :delete %></li>
+      </ul>
+    </div>
+  </nav>
+</section>
+
+<span title=""><img src="https://i.ibb.co/jf8KNrr/iconfinder-Info-132643.png"/></span>
+<% @skc = current_skc %>
+  <div class="tab-pane" id="studie">
+    <ul class="casing">
+        <section class="holeCasing">
+        <h3><u>Neue Studie</u></h3>
+        <%= form_for :Studies, :url => {:controller => "studies" , :action => "create" }, :html => {:class => "nifty_form"} do |st| %>
+        <%= st.hidden_field :id , :value => Studies.maximum(:id) + 1  %>
+        <%= st.hidden_field :created_at , :value => Time.now %>
+        <%= st.hidden_field :updated_at , :value => Time.now %>
+        <%= st.hidden_field :updated_by , :value => @skc.email %>
+        <div class="smallbox">Studienbezeichnung <span title="Studienkürzel aus Buchstaben und Zahlen. In Modul 4, unter 'Charakteristika der in die Bewertung eingeschlossenen Studien…'. Immer die Verfahrensnummer dazuschreiben. Beispiel: >>Studie 1<< (Verf.-Nr. >>XXX<<)"><img src="https://i.ibb.co/jf8KNrr/iconfinder-Info-132643.png"/></span></div><div class="smallbox"><%= st.text_field :bezeichnung %></div>
+        <div class="smallbox">Studienname <span title="Name der Studie, falls vorhanden (wenn nicht, bitte freilassen). Meistens im Dossier, Modul 4, unter 'Charakteristika der in die Bewertung eingeschlossenen Studien…'."><img src="https://i.ibb.co/jf8KNrr/iconfinder-Info-132643.png"/></span></div><div class="smallbox"><%= st.text_field :studien_name %></div>
+        <div class="smallbox">Clinicaltrials.gov <span title="NCT, unter der die Studie auf Clinicaltrails.gov zu finden ist, angeben. Oft nicht im Dossier aufgeführt. Direkt auf Clinicaltrails.gov suchen. ACHTUNG: Genau abgleichen, ob diese NCT wirklich zur Studie gehört."><img src="https://i.ibb.co/jf8KNrr/iconfinder-Info-132643.png"/></span></div><div class="smallbox"><%= st.text_field :clinical %></div>
+        <div class="smallbox">Studientyp <span title="Pivotale Studien sind zulassungsrelevante Studien, supportive Studien sind lediglich unterstützend dargestellt. In der initialen Nutzenbewertung vom G-BA unter 'Zulassungsbegründete Studien' zu finden."><img src="https://i.ibb.co/jf8KNrr/iconfinder-Info-132643.png"/></span></div><div class="smallbox"><%= st.select(:studien_typ , options_for_select([['Pivot-Studie','Pivot-Studie'],['Supportiv','Supportiv']]))%></div>
+        <div class="smallbox">Sponsor <span title="Unternehmen, dass die Studie finanziert hat. Zu finden auf Clinicaltrails.gov."><img src="https://i.ibb.co/jf8KNrr/iconfinder-Info-132643.png"/></span></div><div class="smallbox"><%= st.text_field :sponsor %></div>
+        <div class="smallbox">Phase <span title="Studien werden in die klinischen Phasen 0 bis 4 eingeteilt. Die Phase der Studie ist auf Clinicaltrails.gov zu finden."><img src="https://i.ibb.co/jf8KNrr/iconfinder-Info-132643.png"/></span></div><div class="smallbox"><%= st.text_field :phase %></div>
+        <div class="smallbox">Population <span title="Eine kurze Beschreibung der relevanten Charakteristika der Studienteilnehmer. Im Dossier, Modul 4, unter 'Charakteristika der in die Bewertung eingeschlossenen Studien…'"><img src="https://i.ibb.co/jf8KNrr/iconfinder-Info-132643.png"/></span></div><div class="smallbox"><%= st.text_area :population %></div>
+        <div class="smallbox">N <span title="Anzahl der Studienteilnehmer, die das Arzneimittel oder den Komparator bekommen haben. Im Dossier, Modul 4 unter 'Charakteristika der in die Bewertung eingeschlossenen Studien…' -> Interventionen."><img src="https://i.ibb.co/jf8KNrr/iconfinder-Info-132643.png"/></span></div><div class="smallbox"><%= st.number_field :IWT %></div>
+        <div class="smallbox">Efficacy & Safety <span title="Studie in der Wirksamkeits- und Sicherheitsendpunkte erhoben wurden. Im Dossier, Modul 4, im 'Anhang 4-E: Methodik der eingeschlossenen Studien'."><img src="https://i.ibb.co/jf8KNrr/iconfinder-Info-132643.png"/></span></div><div class="smallbox"><%= st.check_box :efficacy %></div>
+        <div class="smallbox">Safety <span title="Studie in der nur Sicherheitsendpunkte erhoben wurden. Im Dossier, Modul 4, im 'Anhang 4-E: Methodik der eingeschlossenen Studien'."><img src="https://i.ibb.co/jf8KNrr/iconfinder-Info-132643.png"/></span></div><div class="smallbox"><%= st.check_box :safety %></div>
+        <div class="smallbox">Dosefinding <span title="Studie in der die Ziel-Dosis ermittelt wird (keine Dosiseskalation oder -vergleichsstudien). Im Dossier, Modul 4, unter 'Charakteristika der in die Bewertung eingeschlossenen Studien…' im Studiendesign. "><img src="https://i.ibb.co/jf8KNrr/iconfinder-Info-132643.png"/></span></div><div class="smallbox"><%= st.check_box :dosefinding %></div>
+        <div class="smallbox">Randomisiert</div><div class="smallbox"><%= st.check_box :randomized %></div>
+        <div class="smallbox">Kontrolliert <span title="Studie in der gegen Placebo oder einen aktiven Komparator verglichen wird (freizulassen bei einarmigen Studien)."><img src="https://i.ibb.co/jf8KNrr/iconfinder-Info-132643.png"/></span></div><div class="smallbox"><%= st.check_box :controlled %></div>
+        <div class="smallbox">Multizenter</div><div class="smallbox"><%= st.check_box :multizenter %></div>
+        <div class="smallbox">Multinational</div><div class="smallbox"><%= st.check_box :multinational %></div>
+        <div class="smallbox">Single-Arm <span title="Gegenteil von kontrolliert, d.h. es gibt keinen Vergleichsarm (einarmige Studie); Zu finden im Dossier, Modul 4, unter 'Charakteristika der in die Bewertung eingeschlossenen Studien…' ACHTUNG: steht nicht immer im Studiendesign."><img src="https://i.ibb.co/jf8KNrr/iconfinder-Info-132643.png"/></span></div><div class="smallbox"><%= st.check_box :single_arm %></div>
+        <div class="smallbox">Doppel-Blind</div><div class="smallbox"><%= st.check_box :double_bline %></div>
+        <div class="smallbox">Open-Label</div><div class="smallbox"><%= st.check_box :label %></div>
+        <div class="smallbox">Extension</div><div class="smallbox"><%= st.check_box :extension %></div>
+        <div class="smallbox">Ongoing <span title="Die Studie wurde noch nicht beendet und läuft zum Zeitpunkt des Dossiers noch (Kontrolle: Es gibt entsprechend noch keinen finalen Datenschnitt)."><img src="https://i.ibb.co/jf8KNrr/iconfinder-Info-132643.png"/></span></div><div class="smallbox"><%= st.check_box :ongoing %></div>
+        <div class="smallbox">Register</div><div class="smallbox"><%= st.check_box :registry %></div>
+        <div class="smallbox">Natural history Study (NHS) <span title="Studie, in der Patienten nicht in einem kontrollierten Studien-Setup untersucht werden. Es werden nur Informationen über die Behandlung und die Gesundheit der Patienten gesammelt (KEINE Gabe einer Studienmedikation)."><img src="https://i.ibb.co/jf8KNrr/iconfinder-Info-132643.png"/></span></div><div class="smallbox"><%= st.check_box :nhs %></div>
+        <div class="smallbox">Randomisierung</div><div class="smallbox"><%= st.text_field :randomization %></div>
+        <div class="smallbox">Evidenzklasse <span title="Studien werden zur Abschätzung ihrer Aussagekraft in Evidenzstufen eingeteilt. Im Dossier, Modul 4, per Suchfunktion nach 'Evidenz' suchen. Falls keine Angabe erfolgt eine Einteilung nach der G-BA Verfahrensordnung (siehe Anleitung Datenbank)."><img src="https://i.ibb.co/jf8KNrr/iconfinder-Info-132643.png"/></span></div><div class="smallbox"><%= st.select(:evidenz, options_for_select([['1a','1a'],['1b','1b'],['2a','2a'],['2b','2b'],['3','3'],['4','4'],['5','5']])) %></div>
+        <div class="smallbox">Anmerkung</div><div class="smallbox"><%= st.text_area :annotation %></div> <br />
+        <%= st.submit "Studie speichern"%>
+        <% end %>
+        </section>
+    </ul>
+  </div>
+

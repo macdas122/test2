@@ -1,0 +1,137 @@
+<style>
+  .box {
+     float: left;
+     width: 98%;
+     margin-right: 0.5%;
+     margin-left: 0.5%;
+     padding: 2px;
+     box-sizing: border-box;
+  }
+  .smallbox {
+     float: left;
+     width: 45%;
+     padding: 1px;
+     box-sizing: border-box;
+  }
+  .smallboxen {
+     float: left;
+     width: 38%;
+     padding: 1px;
+     box-sizing: border-box;
+  }
+  .casing {
+     float: left;
+     width: 100%;
+  }
+  .holeCasing {
+     float: left;
+     width: 40%;
+     box-sizing: border-box;
+  }
+  .justCasing {
+     float: left;
+     width: 90%;
+     box-sizing: border-box;
+  }
+  .just {
+     float: left;
+     width: 50%;
+     box-sizing: border-box;
+  }
+</style>
+
+  <section>
+    <nav class="navbar navbar-default">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="#">SKC AMNOG</a>
+        </div>
+        <ul class="nav navbar-nav">
+          <li><a href="../dashboard">Newsfeed</a></li>
+          <li><a href="../mains">Datenbank</a></li>
+          <li><a href="../mains/show">Suche</a></li>
+          <li><a href="../endpoints/show">EP-Suche</a></li>
+          <li class="active"><a href="../main">Dateneingabe</a></li>
+          <li><a href="../main/show">Datenverwaltung</a></li>
+          <li> <%= link_to "Ausloggen", destroy_skc_session_path, method: :delete %></li>
+        </ul>
+      </div>
+    </nav>
+  </section>
+
+
+        <section class="holeCasing">
+          <h4>Jahrestherapiekosten(Aktuell)</h4>
+          <%= form_for :Jtkaks , :url => {:controller => "jtkak" , :action => "create"}, :html => {:class => "nifty_form"} do |jtkak|%>
+            <% @user = current_skc %>
+            <%= jtkak.hidden_field :id , :value => (Jtkak.maximum(:id) + 1) %>
+
+            <div class="smallbox">Verfahren (Aktuell)</div> <div class="smallbox"><%= jtkak.collection_select(:eingetragen , Main.all.order(:gba_number) , :gba_number , :gba_number , prompt: true)%></div>            
+            <div class="smallbox">Subgruppe</div> <div class="smallbox"><%= jtkak.text_area :subgruppe %></div>
+            <div class="smallbox">Dosierung #1 in Packungen</div> <div class="smallbox"><%= jtkak.number_field :dosierung_eins , class: :text_field, :step => 0.0000000000000000001 , :value => 0%></div>
+            <div class="smallbox">Dosierung #2 in Packungen</div> <div class="smallbox"><%= jtkak.number_field :dosierung_zwei , class: :text_field, :step => 0.0000000000000000001 , :value => 0%></div>
+            <div class="smallbox">Dosierung #3 in Packungen</div> <div class="smallbox"><%= jtkak.number_field :dosierung_drei , class: :text_field, :step => 0.0000000000000000001 , :value => 0%></div>
+            <div class="smallbox">Dosierung #4 in Packungen</div> <div class="smallbox"><%= jtkak.number_field :dosierung_vier , class: :text_field, :step => 0.0000000000000000001 , :value => 0%></div>
+            <div class="smallbox">Dosierung #5 in Packungen</div> <div class="smallbox"><%= jtkak.number_field :dosierung_fuenf , class: :text_field, :step => 0.0000000000000000001 , :value => 0%></div>
+            <div class="smallbox">Dosierung #6 in Packungen</div> <div class="smallbox"><%= jtkak.number_field :dosierung_sechs , class: :text_field, :step => 0.0000000000000000001 , :value => 0%></div>
+            <div class="smallbox">PZN #1</div> <div class="smallbox"><%= jtkak.collection_select(:pzn_eins , @pzngrp , :pzn , :pzn , prompt: true) %></div>
+            <div class="smallbox">PZN #2</div> <div class="smallbox"><%= jtkak.collection_select(:pzn_zwei , @pzngrp , :pzn , :pzn , prompt: true) %></div>
+            <div class="smallbox">PZN #3</div> <div class="smallbox"><%= jtkak.collection_select(:pzn_drei , @pzngrp , :pzn , :pzn , prompt: true) %></div>
+            <div class="smallbox">PZN #4</div> <div class="smallbox"><%= jtkak.collection_select(:pzn_vier , @pzngrp , :pzn , :pzn , prompt: true) %></div>
+            <div class="smallbox">PZN #5</div> <div class="smallbox"><%= jtkak.collection_select(:pzn_fuenf , @pzngrp , :pzn , :pzn , prompt: true) %></div>
+            <div class="smallbox">PZN #6</div> <div class="smallbox"><%= jtkak.collection_select(:pzn_sechs , @pzngrp , :pzn , :pzn , prompt: true) %></div>
+          <%= jtkak.submit "Speichern" %>
+        <% end %>
+        </section>
+
+
+	<section class="holeCasing">
+          <h4>Jahrestherapiekosten(Beschluss)</h4>
+          <%= form_for :Jtkgbs , :url => {:controller => "jtkgb" , :action => "create"}, :html => {:class => "nifty_form"} do |jtkgb|%>
+            <% @user = current_skc %>
+            <%= jtkgb.hidden_field :id , :value => (Jtkgb.maximum(:id)+ 1) %>
+            <%= jtkgb.hidden_field :eingetragen , :value => @user.email %>
+            <div class="smallbox">Verfahren der Beschlussfassung</div> <div class="smallbox"><%= jtkgb.collection_select(:verfahren , Main.all.order(:gba_number) , :gba_number , :gba_number , prompt: true)%></div>
+            <div class="smallbox">Subgruppe</div> <div class="smallbox"><%= jtkgb.text_area :subgruppe %></div>
+            <div class="smallbox">Dosierung #1 in Packungen</div> <div class="smallbox"><%= jtkgb.number_field :dosierung_eins , class: :text_field, :step => 0.0000000000000000001 , :value => 0%></div>
+            <div class="smallbox">Dosierung #2 in Packungen</div> <div class="smallbox"><%= jtkgb.number_field :dosierung_zwei , class: :text_field, :step => 0.0000000000000000001, :value => 0%></div>
+            <div class="smallbox">Dosierung #3 in Packungen</div> <div class="smallbox"><%= jtkgb.number_field :dosierung_drei , class: :text_field, :step => 0.0000000000000000001 , :value => 0%></div>
+            <div class="smallbox">Dosierung #4 in Packungen</div> <div class="smallbox"><%= jtkgb.number_field :dosierung_vier , class: :text_field, :step => 0.0000000000000000001 , :value => 0%></div>
+            <div class="smallbox">Dosierung #5 in Packungen</div> <div class="smallbox"><%= jtkgb.number_field :dosierung_fuenf , class: :text_field, :step => 0.0000000000000000001 , :value => 0%></div>
+            <div class="smallbox">Dosierung #6 in Packungen</div> <div class="smallbox"><%= jtkgb.number_field :dosierung_sechs , class: :text_field, :step => 0.0000000000000000001 , :value => 0%></div>
+            <div class="smallbox">PZN #1</div> <div class="smallbox"><%= jtkgb.collection_select(:pzn_eins , @pzngrp , :pzn , :pzn , prompt: true) %></div>
+            <div class="smallbox">PZN #2</div> <div class="smallbox"><%= jtkgb.collection_select(:pzn_zwei , @pzngrp , :pzn , :pzn , prompt: true) %></div>
+            <div class="smallbox">PZN #3</div> <div class="smallbox"><%= jtkgb.collection_select(:pzn_drei , @pzngrp , :pzn , :pzn , prompt: true) %></div>
+            <div class="smallbox">PZN #4</div> <div class="smallbox"><%= jtkgb.collection_select(:pzn_vier , @pzngrp , :pzn , :pzn , prompt: true) %></div>
+            <div class="smallbox">PZN #5</div> <div class="smallbox"><%= jtkgb.collection_select(:pzn_fuenf , @pzngrp , :pzn , :pzn , prompt: true) %></div>
+            <div class="smallbox">PZN #6</div> <div class="smallbox"><%= jtkgb.collection_select(:pzn_sechs , @pzngrp , :pzn , :pzn , prompt: true) %></div>
+          <%= jtkgb.submit "Speichern" %>
+        <% end %>
+        </section>
+
+        <section class="holeCasing">
+          <h4>Jahrestherapiekosten(Nach der Preisverhandlung)</h4>
+          <%= form_for :Jtkpvs , :url => {:controller => "jtkpv" , :action => "create"}, :html => {:class => "nifty_form"} do |jtkpv|%>
+            <% @user = current_skc %>
+            <%= jtkpv.hidden_field :id , :value => (Jtkpv.maximum(:id)+ 1) %>
+            <%= jtkpv.hidden_field :eingetragen , :value => @user.email %>
+            <div class="smallbox">Verfahren der Beschlussfassung</div><div class="smallbox"><%= jtkpv.collection_select(:verfahren , Main.all.order(:gba_number) , :gba_number , :gba_number , prompt: true)%></div>
+            <div class="smallbox">Subgruppe</div> <div class="smallbox"><%= jtkpv.text_area :subgruppe %></div>
+            <div class="smallbox">Dosierung #1 in Packungen</div> <div class="smallbox"><%= jtkpv.number_field :dosierung_eins , class: :text_field, :step => 0.0000000000000000001 , :value => 0%></div>
+            <div class="smallbox">Dosierung #2 in Packungen</div> <div class="smallbox"><%= jtkpv.number_field :dosierung_zwei , class: :text_field, :step => 0.0000000000000000001 , :value => 0%></div>
+            <div class="smallbox">Dosierung #3 in Packungen</div> <div class="smallbox"><%= jtkpv.number_field :dosierung_drei , class: :text_field, :step => 0.0000000000000000001 , :value => 0%></div>
+            <div class="smallbox">Dosierung #4 in Packungen</div> <div class="smallbox"><%= jtkpv.number_field :dosierung_vier , class: :text_field, :step => 0.0000000000000000001 , :value => 0%></div>
+            <div class="smallbox">Dosierung #5 in Packungen</div> <div class="smallbox"><%= jtkpv.number_field :dosierung_fuenf , class: :text_field, :step => 0.0000000000000000001 , :value => 0%></div>
+            <div class="smallbox">Dosierung #6 in Packungen</div> <div class="smallbox"><%= jtkpv.number_field :dosierung_sechs , class: :text_field, :step => 0.0000000000000000001 , :value => 0%></div>
+
+            <div class="smallbox">Datum der Preisverhandlung</div> <div class="smallbox"><%= jtkpv.date_field :datum%></div>
+            <div class="smallbox">PZN #1</div> <div class="smallbox"><%= jtkpv.collection_select(:pzn_eins , @pzngrp , :pzn , :pzn , prompt: true) %></div>
+            <div class="smallbox">PZN #2</div> <div class="smallbox"><%= jtkpv.collection_select(:pzn_zwei , @pzngrp , :pzn , :pzn , prompt: true) %></div>
+            <div class="smallbox">PZN #3</div> <div class="smallbox"><%= jtkpv.collection_select(:pzn_drei , @pzngrp , :pzn , :pzn , prompt: true) %></div>
+            <div class="smallbox">PZN #4</div> <div class="smallbox"><%= jtkpv.collection_select(:pzn_vier , @pzngrp , :pzn , :pzn , prompt: true) %></div>
+            <div class="smallbox">PZN #5</div> <div class="smallbox"><%= jtkpv.collection_select(:pzn_fuenf , @pzngrp , :pzn , :pzn , prompt: true) %></div>
+            <div class="smallbox">PZN #6</div> <div class="smallbox"><%= jtkpv.collection_select(:pzn_sechs , @pzngrp , :pzn , :pzn , prompt: true) %></div>
+          <%= jtkpv.submit "Speichern" %>
+        <% end %>
+        </section>
+

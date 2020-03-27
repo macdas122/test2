@@ -1,0 +1,3 @@
+class PreisAnmerkung < ApplicationRecord
+end
+

@@ -1,0 +1,2 @@
+class Jtkak < ApplicationRecord
+end

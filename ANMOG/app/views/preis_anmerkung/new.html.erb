@@ -1,0 +1,74 @@
+ <style>
+  .box {
+     float: left;
+     width: 98%;
+     margin-right: 0.5%;
+     margin-left: 0.5%;
+     padding: 2px;
+     box-sizing: border-box;
+  }
+  .smallbox {
+     float: left;
+     width: 45%;
+     padding: 1px;
+     box-sizing: border-box;
+  }
+  .smallboxen {
+     float: left;
+     width: 38%;
+     padding: 1px;
+     box-sizing: border-box;
+  }
+  .casing {
+     float: left;
+     width: 100%;
+  }
+  .holeCasing {
+     float: left;
+     width: 40%;
+     box-sizing: border-box;
+  }
+  .justCasing {
+     float: left;
+     width: 90%;
+     box-sizing: border-box;
+  }
+  .just {
+     float: left;
+     width: 50%;
+     box-sizing: border-box;
+  }
+ </style>
+
+ <section>
+    <nav class="navbar navbar-default">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="#">SKC AMNOG</a>
+        </div> 
+        <ul class="nav navbar-nav">
+          <li><a href="../dashboard">Newsfeed</a></li>
+          <li><a href="../mains">Datenbank</a></li>
+          <li><a href="../mains/show">Suche</a></li>
+          <li><a href="../endpoints/show">EP-Suche</a></li>
+          <li class="active"><a href="../main">Dateneingabe</a></li>
+          <li><a href="../main/show">Datenverwaltung</a></li>
+          <li> <%= link_to "Ausloggen", destroy_skc_session_path, method: :delete %></li>
+        </ul>
+      </div>
+    </nav>
+ </section>
+
+    <ul class="casing">
+        <section class="holeCasing">
+          <h3><u>Neue Anmerkung zum Preis</u></h3>
+          <%= form_for :Preis_anmerkungs, :url => {:controller => "preis_anmerkung" , :action => "create" }, :html => {:class => "nifty_form"} do |pa| %>
+
+          <%= pa.hidden_field :id , :value =>  PreisAnmerkung.maximum(:id) + 1 %>
+          <div class="smallbox">Verfahren der Anmerkung</div> <div class="smallbox"><%= pa.collection_select(:verfahrensnummer , Main.all.order(:gba_number) , :gba_number , :gba_number , prompt: true)%></div>
+          <div class="smallbox">Anmerkung</div> <div class="smallbox"><%= pa.text_area :anmerkung %></div>
+          <%= pa.submit "Anmerkung speichern"%>
+          <% end %>
+        </section>
+    </ul>
+             

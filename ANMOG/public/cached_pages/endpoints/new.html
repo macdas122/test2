@@ -1,0 +1,694 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>AMNOG</title>
+    <meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="Zp9PaQqk9VAKG8OiWW/RxPCkMswJM7rzGQhpbazcmgvYJ14BFl8H9bEGDZZqZ5Ei06jvUkszkLYgrFx+k4iFlg==" />
+    
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" media="all" href="/assets/application.self-c22f09b2d7c970a7cdcf5aaf265d56e2b9e620b8b54e6b079fc36611782cc2c7.css?body=1" />
+    <script src="/assets/action_cable.self-69fddfcddf4fdef9828648f9330d6ce108b93b82b0b8d3affffc59a114853451.js?body=1"></script>
+<script src="/assets/cable.self-8484513823f404ed0c0f039f75243bfdede7af7919dda65f2e66391252443ce9.js?body=1"></script>
+<script src="/assets/pricedatas.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1"></script>
+<script src="/assets/rails-ujs.self-3b600681e552d8090230990c0a2e8537aff48159bea540d275a620d272ba33a0.js?body=1"></script>
+<script src="/assets/activestorage.self-0525629bb5bac7ed5f2bfc58a9679d75705e426dafd6957ae9879db97c8e9cbe.js?body=1"></script>
+<script src="/assets/chartkick.self-56f8aaa39070445cc64490c1a2ed131d02556648c455bbeb1fd33c621e84f016.js?body=1"></script>
+<script src="/assets/jquery3.self-5af507e253c37e9c9dcf65064fc3f93795e6e28012780579975a4d709f4074ad.js?body=1"></script>
+<script src="/assets/application.self-d0d71ff771ba91a575593dc9965d67871fcd47bc9a2dc42102e2e05556ac0c50.js?body=1"></script>
+    <script src="https://www.gstatic.com/charts/loader.js"></script>
+    <link rel="stylesheet" media="screen" href="http://yandex.st/bootstrap/3.1.1/css/bootstrap.min.css" />
+    <script src="http://yandex.st/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+
+
+  </head>
+
+  <body>
+    <style>
+.box {
+     float: left;
+     width: 98%;
+     margin-right: 0.5%;
+     margin-left: 0.5%;
+     padding: 2px;
+     box-sizing: border-box;
+}
+.smallbox {
+     float: left;
+     width: 45%;
+     padding: 1px;
+     box-sizing: border-box;
+}
+.smallboxen {
+     float: left;
+     width: 38%;
+     padding: 1px;
+     box-sizing: border-box;
+}
+.casing {
+     float: left;
+     width: 100%;
+}
+.holeCasing {
+     float: left;
+     width: 40%;
+     box-sizing: border-box;
+}
+.justCasing {
+     float: left;
+     width: 90%;
+     box-sizing: border-box;
+}
+.just {
+     float: left;
+     width: 50%;
+     box-sizing: border-box;
+}
+</style>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"/>
+
+
+<section>
+  <nav class="navbar navbar-default">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <a class="navbar-brand" href="#">SKC AMNOG</a>
+      </div>
+      <ul class="nav navbar-nav">
+        <li><a href="../dashboard">Newsfeed</a></li>
+        <li><a href="../mains">Datenbank</a></li>
+        <li><a href="../mains/show">Suche</a></li>
+        <li><a href="../endpoints/show">EP-Suche</a></li>
+        <li><a href="../main/show">Datenverwaltung</a></li>
+        <li> <a rel="nofollow" data-method="delete" href="/skcs/sign_out">Ausloggen</a></li>
+      </ul>
+    </div>
+  </nav>
+</section>
+
+    <ul class="casing">
+        <section class="holeCasing">
+          <h3><u>Neuer Endpunkt</u></h3>
+          <h3><u>Endpunkt</u></h3>
+          <form class="nifty_form" action="/endpoints" accept-charset="UTF-8" method="post"><input name="utf8" type="hidden" value="&#x2713;" /><input type="hidden" name="authenticity_token" value="4/1XQlnEAWCub1KYnaKq3l0r/8agG54cx0uvtlvW291dRUYqRT/zxRVynKyuquo4ficiWOIbtFn+75qlZILEQA==" />
+          <input value="21002" type="hidden" name="Endpoints[id]" id="Endpoints_id" />
+          <input value="werner@skc-beratung.de" type="hidden" name="Endpoints[updated_by]" id="Endpoints_updated_by" />
+          <input value="2020-03-27 15:32:11 +0100" type="hidden" name="Endpoints[updated_at]" id="Endpoints_updated_at" />
+          <input value="2020-03-27 15:32:11 +0100" type="hidden" name="Endpoints[created_at]" id="Endpoints_created_at" />
+          <div class="smallbox">Studienbezeichnung</div><div class="smallbox"><select name="Endpoints[study]" id="Endpoints_study"><option value="">Please select</option>
+<option value="VX08-770-103 (Verf.-Nr. 431)">VX08-770-103 (Verf.-Nr. 431)</option>
+<option value="VX08-770-102 (Verf.-Nr. 431)">VX08-770-102 (Verf.-Nr. 431)</option>
+<option value="PCYC-1118E (Verf.-Nr. 215)">PCYC-1118E (Verf.-Nr. 215)</option>
+<option value="VX14-661-110 (Verf.-Nr. 481)">VX14-661-110 (Verf.-Nr. 481)</option>
+<option value="VX12-809-104 (Verf.-Nr. 481)">VX12-809-104 (Verf.-Nr. 481)</option>
+<option value="VX12-809-103 (Verf.-Nr. 481)">VX12-809-103 (Verf.-Nr. 481)</option>
+<option value="VX14-661-106 (Verf.-Nr. 481)">VX14-661-106 (Verf.-Nr. 481)</option>
+<option value="PCYC-1118E (Verf.-Nr. 490)">PCYC-1118E (Verf.-Nr. 490)</option>
+<option value="I4T-MC-JVDE (Verf.-Nr. 480)">I4T-MC-JVDE (Verf.-Nr. 480)</option>
+<option value="I4T-IE-JVBF (Verf.-Nr. 480)">I4T-IE-JVBF (Verf.-Nr. 480)</option>
+<option value="UltIMMa-2 (Verf.-Nr. 465)">UltIMMa-2 (Verf.-Nr. 465)</option>
+<option value="UltIMMa-1 (Verf.-Nr. 465)">UltIMMa-1 (Verf.-Nr. 465)</option>
+<option value="M16-178 (Verf.-Nr. 465)">M16-178 (Verf.-Nr. 465)</option>
+<option value="ISIS 304801-CS7 (Verf.-Nr. 479)">ISIS 304801-CS7 (Verf.-Nr. 479)</option>
+<option value="ISIS 304801-CS16 (Verf.-Nr. 479)">ISIS 304801-CS16 (Verf.-Nr. 479)</option>
+<option value="ISIS 304801-CS6 (Verf.-Nr. 479)">ISIS 304801-CS6 (Verf.-Nr. 479)</option>
+<option value="PHEDRA (Verf.-Nr. 491)">PHEDRA (Verf.-Nr. 491)</option>
+<option value="PYCY-1118E (Verf.-Nr. 491)">PYCY-1118E (Verf.-Nr. 491)</option>
+<option value="Castillo et al., 2019 (Verf.-Nr. 491)">Castillo et al., 2019 (Verf.-Nr. 491)</option>
+<option value="Castillo et al., 2018 (Verf.-Nr. 491)">Castillo et al., 2018 (Verf.-Nr. 491)</option>
+<option value="PCYC-1127-CA (Verf.-Nr. 491)">PCYC-1127-CA (Verf.-Nr. 491)</option>
+<option value="Ahn et al., 2018 (Verf.-Nr. 491)">Ahn et al., 2018 (Verf.-Nr. 491)</option>
+<option value="Woyach et al., 2018 (Verf.-Nr. 491)">Woyach et al., 2018 (Verf.-Nr. 491)</option>
+<option value="Burger et al., 2019 (Verf.-Nr. 491)">Burger et al., 2019 (Verf.-Nr. 491)</option>
+<option value="PCYC-1130-CA (Verf.-Nr. 491)">PCYC-1130-CA (Verf.-Nr. 491)</option>
+<option value="Ahn et al., 2018 (Verf.-Nr. 490)">Ahn et al., 2018 (Verf.-Nr. 490)</option>
+<option value="PYCY-1118E (Verf.-Nr. 490)">PYCY-1118E (Verf.-Nr. 490)</option>
+<option value="PHEDRA (Verf.-Nr. 490)">PHEDRA (Verf.-Nr. 490)</option>
+<option value="Castillo et al. 2019 (Verf.-Nr. 490)">Castillo et al. 2019 (Verf.-Nr. 490)</option>
+<option value="Castillo et al. 2018 (Verf.-Nr. 490)">Castillo et al. 2018 (Verf.-Nr. 490)</option>
+<option value="PCYC-1127-CA (Verf.-Nr. 490)">PCYC-1127-CA (Verf.-Nr. 490)</option>
+<option value="Woyach et al., 2018 (Verf.-Nr. 490)">Woyach et al., 2018 (Verf.-Nr. 490)</option>
+<option value="Burger et al. 2019 (Verf.-Nr. 490)">Burger et al. 2019 (Verf.-Nr. 490)</option>
+<option value="PCI-32765">PCI-32765</option>
+<option value="PCYC-1130-CA (Verf.-Nr. 490)">PCYC-1130-CA (Verf.-Nr. 490)</option>
+<option value="PKUDOS (Verf.-Nr. 471)">PKUDOS (Verf.-Nr. 471)</option>
+<option value="BMN 165-302 (Verf.-Nr. 471)">BMN 165-302 (Verf.-Nr. 471)</option>
+<option value="BMN 165-301 (Verf.-Nr. 471)">BMN 165-301 (Verf.-Nr. 471)</option>
+<option value="ARCHER 1050 (Verf.-Nr. 460)">ARCHER 1050 (Verf.-Nr. 460)</option>
+<option value="OlympiAD (Verf.-Nr. 463)">OlympiAD (Verf.-Nr. 463)</option>
+<option value="SOLO-1 (Verf.-Nr. 474)">SOLO-1 (Verf.-Nr. 474)</option>
+<option value="ALUR">ALUR</option>
+<option value="NGM Köln 2017 (Verf.-Nr. 289)">NGM Köln 2017 (Verf.-Nr. 289)</option>
+<option value="Ding et al. 2017 (Verf.-Nr. 289)">Ding et al. 2017 (Verf.-Nr. 289)</option>
+<option value="Cardarella et al. 2013 (Verf.-Nr. 289)">Cardarella et al. 2013 (Verf.-Nr. 289)</option>
+<option value="BRF113918 (Verf.-Nr. 289)">BRF113918 (Verf.-Nr. 289)</option>
+<option value="CA209-205 (Verf.-Nr. 292)">CA209-205 (Verf.-Nr. 292)</option>
+<option value="MK-3475-087">MK-3475-087</option>
+<option value="KEYNOTE 042 (Verf.-Nr. 452)">KEYNOTE 042 (Verf.-Nr. 452)</option>
+<option value="KEYNOTE 024 (Verf.- Nr 452)">KEYNOTE 024 (Verf.- Nr 452)</option>
+<option value="MK-3475-045 (Verf.-Nr. 312)">MK-3475-045 (Verf.-Nr. 312)</option>
+<option value="ASCEND-5">ASCEND-5</option>
+<option value="PROFILE 1014">PROFILE 1014</option>
+<option value="Flatiron Health Datenbank (Verf.-Nr. 285)">Flatiron Health Datenbank (Verf.-Nr. 285)</option>
+<option value="NP28673">NP28673</option>
+<option value="NP28761">NP28761</option>
+<option value="Kim et al. 2015 (Verf.-Nr. 312)">Kim et al. 2015 (Verf.-Nr. 312)</option>
+<option value="Sella et Kovel 2012 (Verf.-Nr. 312)">Sella et Kovel 2012 (Verf.-Nr. 312)</option>
+<option value="EORTC 30986 (verf.-Nr. 312)">EORTC 30986 (verf.-Nr. 312)</option>
+<option value="Linardou et al. 2004 (Verf.-Nr. 312)">Linardou et al. 2004 (Verf.-Nr. 312)</option>
+<option value="Carles et al. 2000 (Verf.-Nr. 312)">Carles et al. 2000 (Verf.-Nr. 312)</option>
+<option value="Bellmunt et al. 2001 (Verf.-Nr. 312)">Bellmunt et al. 2001 (Verf.-Nr. 312)</option>
+<option value="EORTC 30986 (Verf. Nr.: 424)">EORTC 30986 (Verf. Nr.: 424)</option>
+<option value="MK-3475-052 (Verf.-Nr. 312)">MK-3475-052 (Verf.-Nr. 312)</option>
+<option value="Xu 2007">Xu 2007</option>
+<option value="Shannon 2001">Shannon 2001</option>
+<option value="Nogué-Aliguer 2003">Nogué-Aliguer 2003</option>
+<option value="Helke 2006">Helke 2006</option>
+<option value="Dogliotti 2007">Dogliotti 2007</option>
+<option value="Bamias 2006">Bamias 2006</option>
+<option value="Baitar 2011">Baitar 2011</option>
+<option value="Linardou 2004 (Verf.-Nr. 315)">Linardou 2004 (Verf.-Nr. 315)</option>
+<option value="16913">16913</option>
+<option value="EORTC 30986 (Verf.-Nr. 315)">EORTC 30986 (Verf.-Nr. 315)</option>
+<option value="Carles 2000 (Verf.-Nr. 315)">Carles 2000 (Verf.-Nr. 315)</option>
+<option value="XF1412DE">XF1412DE</option>
+<option value="Bellmunt 2001 (Verf.-Nr. 315)">Bellmunt 2001 (Verf.-Nr. 315)</option>
+<option value="Bamias 2007 (Verf.-Nr. 315)">Bamias 2007 (Verf.-Nr. 315)</option>
+<option value="GO29293 (Verf.-Nr. 315)">GO29293 (Verf.-Nr. 315)</option>
+<option value="KEYNOTE 021G (Verf.-Nr.452)">KEYNOTE 021G (Verf.-Nr.452)</option>
+<option value="KEYNOTE 189 (Verf- Nr.452)">KEYNOTE 189 (Verf- Nr.452)</option>
+<option value="MK-3475-054">MK-3475-054</option>
+<option value="MK-3475-042 (Verf.-Nr. 453)">MK-3475-042 (Verf.-Nr. 453)</option>
+<option value="MK-3475-024 (Verf.Nr. 453)">MK-3475-024 (Verf.Nr. 453)</option>
+<option value="MK-3475-407">MK-3475-407</option>
+<option value="Flatiron Health Datenbank (Verf.-Nr. 455)">Flatiron Health Datenbank (Verf.-Nr. 455)</option>
+<option value="Kaye et al. 2012">Kaye et al. 2012</option>
+<option value="NGM Köln 2017">NGM Köln 2017</option>
+<option value="Ding et al. 2017">Ding et al. 2017</option>
+<option value="Cardarella et al. 2013">Cardarella et al. 2013</option>
+<option value="BRF113928">BRF113928</option>
+<option value="A8081029">A8081029</option>
+<option value="A8081014">A8081014</option>
+<option value="CLDK378A2301">CLDK378A2301</option>
+<option value="11213">11213</option>
+<option value="CRAD001C2240">CRAD001C2240</option>
+<option value="A4061032 (Verf.-Nr. 40)">A4061032 (Verf.-Nr. 40)</option>
+<option value="XL184-308">XL184-308</option>
+<option value="CA209-025 (Verf.-Nr. 283)">CA209-025 (Verf.-Nr. 283)</option>
+<option value="A4061051/2L">A4061051/2L</option>
+<option value="A4061032 (Verf.-Nr. 283)">A4061032 (Verf.-Nr. 283)</option>
+<option value="Gordon et al. 2001">Gordon et al. 2001</option>
+<option value="09072008-13772">09072008-13772</option>
+<option value="AV-951-09-301">AV-951-09-301</option>
+<option value="CDR0000455008">CDR0000455008</option>
+<option value="212082PCR3011">212082PCR3011</option>
+<option value="MM-007">MM-007</option>
+<option value="VX15-809-110">VX15-809-110</option>
+<option value="VX13-809-011">VX13-809-011</option>
+<option value="CA184-169">CA184-169</option>
+<option value="SHH4476g">SHH4476g</option>
+<option value="CLDE225A2201">CLDE225A2201</option>
+<option value="BO25126">BO25126</option>
+<option value="261204">261204</option>
+<option value="3160A4-2203">3160A4-2203</option>
+<option value="D5160C00007">D5160C00007</option>
+<option value="GO28141 (Verf.-Nr. 392)">GO28141 (Verf.-Nr. 392)</option>
+<option value="CMEK162B2301 (Verf.-Nr. 392)">CMEK162B2301 (Verf.-Nr. 392)</option>
+<option value="CLEE011A2301">CLEE011A2301</option>
+<option value="3160A4-200">3160A4-200</option>
+<option value="E7080-G000-304">E7080-G000-304</option>
+<option value="MK-3475-40 (Verf.-Nr.403)">MK-3475-40 (Verf.-Nr.403)</option>
+<option value="D4191C00001">D4191C00001</option>
+<option value="I3Y-MC-JPBL (Verf.-Nr.409)">I3Y-MC-JPBL (Verf.-Nr.409)</option>
+<option value="I3Y-MC-JPBM (Verf.-Nr.410)">I3Y-MC-JPBM (Verf.-Nr.410)</option>
+<option value="M14-032 (Verf.-Nr.418)">M14-032 (Verf.-Nr.418)</option>
+<option value=" M13-982 (Verf.-Nr.418)"> M13-982 (Verf.-Nr.418)</option>
+<option value="GO28667 (Verf.-Nr.418)">GO28667 (Verf.-Nr.418)</option>
+<option value="PROSPER">PROSPER</option>
+<option value="M14-032 (Verf.-Nr.419)">M14-032 (Verf.-Nr.419)</option>
+<option value="M13-982 (Verf.-Nr.419)">M13-982 (Verf.-Nr.419)</option>
+<option value="GO28667 (Verf.-Nr.419)">GO28667 (Verf.-Nr.419)</option>
+<option value="Kim et al. 2015 (Verf.-Nr. 424)">Kim et al. 2015 (Verf.-Nr. 424)</option>
+<option value="Sella et Kovel 2012 (Verf.-Nr. 424)">Sella et Kovel 2012 (Verf.-Nr. 424)</option>
+<option value="Linardou et al. 2004 (Verf.-Nr. 424)">Linardou et al. 2004 (Verf.-Nr. 424)</option>
+<option value="Carles et al. 2000 (verf.-Nr. 424)">Carles et al. 2000 (verf.-Nr. 424)</option>
+<option value="Bellmunt et al. 2001 (Verf.-Nr. 424)">Bellmunt et al. 2001 (Verf.-Nr. 424)</option>
+<option value="MK-3475-052 (Verf.-Nr.424)">MK-3475-052 (Verf.-Nr.424)</option>
+<option value="Linardou 2004 (Verf.-Nr. 426)">Linardou 2004 (Verf.-Nr. 426)</option>
+<option value="EORTC 30986 (Verf.-Nr. 426)">EORTC 30986 (Verf.-Nr. 426)</option>
+<option value="Carles 2000 (Verf.-Nr. 426)">Carles 2000 (Verf.-Nr. 426)</option>
+<option value="Bellmunt 2001 (Verf.-Nr. 426)">Bellmunt 2001 (Verf.-Nr. 426)</option>
+<option value="Bamias 2007 (Verf.-Nr. 426)">Bamias 2007 (Verf.-Nr. 426)</option>
+<option value="SPINART">SPINART</option>
+<option value="BH29768 (Verf.-Nr. 449)">BH29768 (Verf.-Nr. 449)</option>
+<option value="AP26113-13-301">AP26113-13-301</option>
+<option value="CLDK378A2303">CLDK378A2303</option>
+<option value="AP26113-11-101 ">AP26113-11-101 </option>
+<option value="SP-754">SP-754</option>
+<option value="AP26113-13-201">AP26113-13-201</option>
+<option value="SP-755">SP-755</option>
+<option value="SP-667">SP-667</option>
+<option value="VRX-RET-E22-302 ">VRX-RET-E22-302 </option>
+<option value="VRX-RET-E-22-302">VRX-RET-E-22-302</option>
+<option value="A8081007 (Verf.-Nr. 248)">A8081007 (Verf.-Nr. 248)</option>
+<option value="AC-065A302">AC-065A302</option>
+<option value="CA204004">CA204004</option>
+<option value="CO-338-010">CO-338-010</option>
+<option value="CO-338-017 (Teil2)">CO-338-017 (Teil2)</option>
+<option value="CO-338-017(Teil1)">CO-338-017(Teil1)</option>
+<option value="E7389-G000-301">E7389-G000-301</option>
+<option value="E7389-G000-305 (Verf.-Nr. 128)">E7389-G000-305 (Verf.-Nr. 128)</option>
+<option value="E7389-G000-305 (Verf.-Nr. 12)">E7389-G000-305 (Verf.-Nr. 12)</option>
+<option value="ET743-SAR-3007">ET743-SAR-3007</option>
+<option value="WA25046">WA25046</option>
+<option value="E7389-G000-309">E7389-G000-309</option>
+<option value="WA21093">WA21093</option>
+<option value="WA21092">WA21092</option>
+<option value="Bellmunt 2017">Bellmunt 2017</option>
+<option value="Bellmunt 2009">Bellmunt 2009</option>
+<option value="Vaughn 2009">Vaughn 2009</option>
+<option value="CA209-032">CA209-032</option>
+<option value="CA209-275">CA209-275</option>
+<option value="N01266">N01266</option>
+<option value="N01263">N01263</option>
+<option value="CFTY720D2311">CFTY720D2311</option>
+<option value="CA209-170 (Verf.-Nr.373)">CA209-170 (Verf.-Nr.373)</option>
+<option value="CA209-038 (Verf.-Nr.373)">CA209-038 (Verf.-Nr.373)</option>
+<option value="CA209-170 (Verf.-Nr. 372)">CA209-170 (Verf.-Nr. 372)</option>
+<option value="CA209-038 (Verf.-Nr. 372)">CA209-038 (Verf.-Nr. 372)</option>
+<option value="CA209-067 (Verf.-Nr. 372)">CA209-067 (Verf.-Nr. 372)</option>
+<option value="CA209-069">CA209-069</option>
+<option value="NO25026 (Verf.-Nr. 240)">NO25026 (Verf.-Nr. 240)</option>
+<option value="CA209-067 (Verf.-Nr. 240)">CA209-067 (Verf.-Nr. 240)</option>
+<option value="CA209-066 (Verf.-Nr. 240)">CA209-066 (Verf.-Nr. 240)</option>
+<option value="CABOSUN">CABOSUN</option>
+<option value="VRX-RET-E22-301">VRX-RET-E22-301</option>
+<option value="201636">201636</option>
+<option value="3065A1-205">3065A1-205</option>
+<option value="D0816C00002">D0816C00002</option>
+<option value="D0810C00019 (Verf.-Nr. 369)">D0810C00019 (Verf.-Nr. 369)</option>
+<option value="RGH-MD-04">RGH-MD-04</option>
+<option value="1199.187">1199.187</option>
+<option value="1199.34 (Verf.-Nr. 457)">1199.34 (Verf.-Nr. 457)</option>
+<option value="1199.32 (Verf.-Nr. 457)">1199.32 (Verf.-Nr. 457)</option>
+<option value="AAV2-hRPE65v2-301">AAV2-hRPE65v2-301</option>
+<option value="NO25026 (Verf.-Nr. 179)">NO25026 (Verf.-Nr. 179)</option>
+<option value="CA209-067 (Verf.-Nr. 179)">CA209-067 (Verf.-Nr. 179)</option>
+<option value="CA209-066 (Verf.-Nr. 179)">CA209-066 (Verf.-Nr. 179)</option>
+<option value="CA209-037">CA209-037</option>
+<option value="A3921187">A3921187</option>
+<option value="A3921064">A3921064</option>
+<option value="Cheah 2016">Cheah 2016</option>
+<option value="CA209-039">CA209-039</option>
+<option value="CA209-205">CA209-205</option>
+<option value="GWSP0604">GWSP0604</option>
+<option value="SAVANT">SAVANT</option>
+<option value="005/05">005/05</option>
+<option value="CA184-029">CA184-029</option>
+<option value="CA209-238">CA209-238</option>
+<option value="CA209-067 (Verf.-Nr. 297)">CA209-067 (Verf.-Nr. 297)</option>
+<option value="CA209-141">CA209-141</option>
+<option value="QVA149ADE01">QVA149ADE01</option>
+<option value="MK-8835-006">MK-8835-006</option>
+<option value="CAIN457ADE06">CAIN457ADE06</option>
+<option value="15767">15767</option>
+<option value="Infacort 004">Infacort 004</option>
+<option value="Infacort-003">Infacort-003</option>
+<option value="CA209-017">CA209-017</option>
+<option value="CA209-057">CA209-057</option>
+<option value="CA209-025 (Verf.-Nr. 231)">CA209-025 (Verf.-Nr. 231)</option>
+<option value="TAILOR">TAILOR</option>
+<option value="LUX-Lung 8">LUX-Lung 8</option>
+<option value="I4X-IE-JFCC">I4X-IE-JFCC</option>
+<option value="101-08 (Verf.-Nr. 226)">101-08 (Verf.-Nr. 226)</option>
+<option value="GS-US-312-0119 (Verf.-Nr. 226)">GS-US-312-0119 (Verf.-Nr. 226)</option>
+<option value="GS-US-312-0117 (Verf.-Nr. 226)">GS-US-312-0117 (Verf.-Nr. 226)</option>
+<option value="GS-US-312-0116 (Verf.-Nr. 226)">GS-US-312-0116 (Verf.-Nr. 226)</option>
+<option value="D5132C00001">D5132C00001</option>
+<option value="I4T-IE-JVBD (Verf.-Nr. 229)">I4T-IE-JVBD (Verf.-Nr. 229)</option>
+<option value="I4T-IE-JVDE (Verf.-Nr. 229)">I4T-IE-JVDE (Verf.-Nr. 229)</option>
+<option value="I4T-MC-JVBB">I4T-MC-JVBB</option>
+<option value="I4T-JE-JVCG">I4T-JE-JVCG</option>
+<option value="I4T-MC-JVBA">I4T-MC-JVBA</option>
+<option value="MEA112997 ">MEA112997 </option>
+<option value="MEA115661 (Verf.-Nr. 216)">MEA115661 (Verf.-Nr. 216)</option>
+<option value="Hanania 2011">Hanania 2011</option>
+<option value="Chanez 2010">Chanez 2010</option>
+<option value="Humbert 2005">Humbert 2005</option>
+<option value="MEA115575 (Verf.-Nr. 216)">MEA115575 (Verf.-Nr. 216)</option>
+<option value="MEA115588 (Verf.-Nr. 216)">MEA115588 (Verf.-Nr. 216)</option>
+<option value="201316">201316</option>
+<option value="CLCZ696B2314">CLCZ696B2314</option>
+<option value="TMC278-C213">TMC278-C213</option>
+<option value="A8081014">A8081014</option>
+<option value="M41008-1102">M41008-1102</option>
+<option value="BO28984">BO28984</option>
+<option value="GO28915">GO28915</option>
+<option value="CLEE011E2301">CLEE011E2301</option>
+<option value="CLEE011F2301">CLEE011F2301</option>
+<option value="CA209-214 (Verf.-Nr.: 439)">CA209-214 (Verf.-Nr.: 439)</option>
+<option value="VX15-809-115">VX15-809-115</option>
+<option value="115532 (Verf.-Nr. 387)">115532 (Verf.-Nr. 387)</option>
+<option value="C25003">C25003</option>
+<option value="LP0041-1120">LP0041-1120</option>
+<option value="115532 (Verf.-Nr. 388)">115532 (Verf.-Nr. 388)</option>
+<option value="XL184-309">XL184-309</option>
+<option value="TMC114IFD3013">TMC114IFD3013</option>
+<option value="GO28141 (Verf.-Nr. 393)">GO28141 (Verf.-Nr. 393)</option>
+<option value="CMEK162B2301 (Verf.-Nr.: 393)">CMEK162B2301 (Verf.-Nr.: 393)</option>
+<option value="A5481023 (Verf.-Nr. 269)">A5481023 (Verf.-Nr. 269)</option>
+<option value="A5481008">A5481008</option>
+<option value="A5481003">A5481003</option>
+<option value="A5481023 (Verf.-Nr. 394)">A5481023 (Verf.-Nr. 394)</option>
+<option value="CAMG334A2301">CAMG334A2301</option>
+<option value="NEU_CH_7911">NEU_CH_7911</option>
+<option value="14295">14295</option>
+<option value="CR102931">CR102931</option>
+<option value="CA209-214 (Verf.-Nr.: 440)">CA209-214 (Verf.-Nr.: 440)</option>
+<option value="E7080-G000-303 (Verf.-Nr.: 442)">E7080-G000-303 (Verf.-Nr.: 442)</option>
+<option value="CO-338-014">CO-338-014</option>
+<option value="HPN-100-009 ">HPN-100-009 </option>
+<option value="MT103-205">MT103-205</option>
+<option value="00103311 (Verf.-Nr. 468)">00103311 (Verf.-Nr. 468)</option>
+<option value="20120148">20120148</option>
+<option value="MT103-202">MT103-202</option>
+<option value="MT103-203">MT103-203</option>
+<option value="MYOMEX">MYOMEX</option>
+<option value="STATLAND 2012">STATLAND 2012</option>
+<option value="CSOM230B2305">CSOM230B2305</option>
+<option value="CINC424A2352 (Verf.-Nr. 38)">CINC424A2352 (Verf.-Nr. 38)</option>
+<option value="INCB 18424-351 (Verf.-Nr. 38)">INCB 18424-351 (Verf.-Nr. 38)</option>
+<option value="DACO-016">DACO-016</option>
+<option value="Aggregierte Fallserie ASCT-naiver Patienten">Aggregierte Fallserie ASCT-naiver Patienten</option>
+<option value="SG035-0004">SG035-0004</option>
+<option value="SG035-0003">SG035-0003</option>
+<option value="CC-4047-MM-003 (Verf.-Nr. 77)">CC-4047-MM-003 (Verf.-Nr. 77)</option>
+<option value="AC-055-302 (Verf.-Nr. 101)">AC-055-302 (Verf.-Nr. 101)</option>
+<option value="PIPF-006">PIPF-006</option>
+<option value="SP2">SP2</option>
+<option value="PIPF-004">PIPF-004</option>
+<option value="SP3">SP3</option>
+<option value="3160A4- 200 (Teil 2) (Verf.-Nr 68)">3160A4- 200 (Teil 2) (Verf.-Nr 68)</option>
+<option value="AP24534-07-101">AP24534-07-101</option>
+<option value="AP24534-10-201">AP24534-10-201</option>
+<option value="11348">11348</option>
+<option value="12934">12934</option>
+<option value="INCB 18424-351 (Verf.-Nr. 116)">INCB 18424-351 (Verf.-Nr. 116)</option>
+<option value="CINC424A2352 (Verf.-Nr. 116)">CINC424A2352 (Verf.-Nr. 116)</option>
+<option value="MOR-005 (Verf.-Nr. 120)">MOR-005 (Verf.-Nr. 120)</option>
+<option value="MOR-004 (Verf.-Nr. 120)">MOR-004 (Verf.-Nr. 120)</option>
+<option value="CNTO328MCD2001">CNTO328MCD2001</option>
+<option value="XL184-301">XL184-301</option>
+<option value="CLL11 (Verf-Nr. 131)">CLL11 (Verf-Nr. 131)</option>
+<option value="CL0600-005">CL0600-005</option>
+<option value="CL0600-004">CL0600-004</option>
+<option value="CL0600-021">CL0600-021</option>
+<option value="CL0600-020">CL0600-020</option>
+<option value="DX-2930-03">DX-2930-03</option>
+<option value="VX12-770-111">VX12-770-111</option>
+<option value="PCYC-1112-CA (Verf.-Nr. 145)">PCYC-1112-CA (Verf.-Nr. 145)</option>
+<option value="PCYC-1104-CA (Verf.-Nr. 145)">PCYC-1104-CA (Verf.-Nr. 145)</option>
+<option value="PCYC-1103-CA (Verf.-Nr. 145)">PCYC-1103-CA (Verf.-Nr. 145)</option>
+<option value="van Kampen et al., 2011(Verf.-Nr. 408)">van Kampen et al., 2011(Verf.-Nr. 408)</option>
+<option value="Rigacci et al., 2012  (Verf.-Nr. 408)">Rigacci et al., 2012  (Verf.-Nr. 408)</option>
+<option value="Lazarus et al., 2010 (Verf.-Nr. 408)">Lazarus et al., 2010 (Verf.-Nr. 408)</option>
+<option value="Heinzelmann et al., 2018 (Verf.-Nr. 408)">Heinzelmann et al., 2018 (Verf.-Nr. 408)</option>
+<option value="Ghobadi et al., 2015 (Verf.-Nr. 408)">Ghobadi et al., 2015 (Verf.-Nr. 408)</option>
+<option value="Fenske et al., 2016  (Verf.-Nr. 408)">Fenske et al., 2016  (Verf.-Nr. 408)</option>
+<option value="Bacher et al., 2012 (Verf.-Nr. 408)">Bacher et al., 2012 (Verf.-Nr. 408)</option>
+<option value="Avivi et al., 2014 (Verf.-Nr. 408)">Avivi et al., 2014 (Verf.-Nr. 408)</option>
+<option value="Armand et al., 2008 (Verf.-Nr. 408)">Armand et al., 2008 (Verf.-Nr. 408)</option>
+<option value="Wilder et al., 2001 (Verf.-Nr. 408)">Wilder et al., 2001 (Verf.-Nr. 408)</option>
+<option value="Pettengell et al., 2012 (Verf.-Nr. 408)">Pettengell et al., 2012 (Verf.-Nr. 408)</option>
+<option value="Pan et al., 2002 (Verf.-Nr. 408)">Pan et al., 2002 (Verf.-Nr. 408)</option>
+<option value="PCYC-1102-CA (Verf.-Nr. 145)">PCYC-1102-CA (Verf.-Nr. 145)</option>
+<option value="Olivieri et al., 2005 (Verf.-Nr. 408)">Olivieri et al., 2005 (Verf.-Nr. 408)</option>
+<option value="Eyre et al, 2016 (Verf.-Nr. 408)">Eyre et al, 2016 (Verf.-Nr. 408)</option>
+<option value="Aurer et al., 2002 (Verf.-Nr. 408)">Aurer et al., 2002 (Verf.-Nr. 408)</option>
+<option value="SCHOLAR-1 (Verf.-Nr. 408)">SCHOLAR-1 (Verf.-Nr. 408)</option>
+<option value="KTE-C19-101 (Verf.-Nr. 408)">KTE-C19-101 (Verf.-Nr. 408)</option>
+<option value="Retrospektive Kohortenstudie Südafrika">Retrospektive Kohortenstudie Südafrika</option>
+<option value="CUV017">CUV017</option>
+<option value="TMC207TBC3001">TMC207TBC3001</option>
+<option value="TMC207-TiDP13-C209">TMC207-TiDP13-C209</option>
+<option value="CUV010">CUV010</option>
+<option value="TMC207-TiDP13-C208">TMC207-TiDP13-C208</option>
+<option value="CUV030">CUV030</option>
+<option value="VX14-661-108 (Verf.-Nr. 416)">VX14-661-108 (Verf.-Nr. 416)</option>
+<option value="VX12-809-104 (Verf.-Nr. 416)">VX12-809-104 (Verf.-Nr. 416)</option>
+<option value="VX12-809-103 (Verf.-Nr. 416)">VX12-809-103 (Verf.-Nr. 416)</option>
+<option value="VX14-661-110 (Verf.-Nr. 416)">VX14-661-110 (Verf.-Nr. 416)</option>
+<option value="VX14-661-106 (Verf.-Nr. 416)">VX14-661-106 (Verf.-Nr. 416)</option>
+<option value="CUV029">CUV029</option>
+<option value="NCT01679197">NCT01679197</option>
+<option value="Von Stackelberg 2011">Von Stackelberg 2011</option>
+<option value="Miano 2012">Miano 2012</option>
+<option value="Locatelli 2009">Locatelli 2009</option>
+<option value="Hijiya 2011">Hijiya 2011</option>
+<option value="Jeha 2006">Jeha 2006</option>
+<option value="Locatelli 2017">Locatelli 2017</option>
+<option value="Von Stackelberg 2016">Von Stackelberg 2016</option>
+<option value="Crump et al. 2017">Crump et al. 2017</option>
+<option value="van Kampen et al., 2011(Verf.-Nr. 406)">van Kampen et al., 2011(Verf.-Nr. 406)</option>
+<option value="Rigacci et al., 2012  (Verf.-Nr. 406)">Rigacci et al., 2012  (Verf.-Nr. 406)</option>
+<option value="Lazarus et al., 2010 (Verf.-Nr. 406)">Lazarus et al., 2010 (Verf.-Nr. 406)</option>
+<option value="Heinzelmann et al., 2018 (Verf.-Nr. 406)">Heinzelmann et al., 2018 (Verf.-Nr. 406)</option>
+<option value="Ghobadi et al., 2015 (Verf.-Nr. 406)">Ghobadi et al., 2015 (Verf.-Nr. 406)</option>
+<option value="Bacher et al., 2012 (Verf.-Nr. 406)">Bacher et al., 2012 (Verf.-Nr. 406)</option>
+<option value="Fenske et al., 2016  (Verf.-Nr. 406)">Fenske et al., 2016  (Verf.-Nr. 406)</option>
+<option value="CORAL">CORAL</option>
+<option value="Avivi et al., 2014 (Verf.-Nr. 406)">Avivi et al., 2014 (Verf.-Nr. 406)</option>
+<option value="Armand et al., 2008 (Verf.-Nr. 406)">Armand et al., 2008 (Verf.-Nr. 406)</option>
+<option value="Wilder et al., 2001 (Verf.-Nr. 406)">Wilder et al., 2001 (Verf.-Nr. 406)</option>
+<option value="UP-1204-003">UP-1204-003</option>
+<option value="HPN-100-012SE">HPN-100-012SE</option>
+<option value="HPN-100-012">HPN-100-012</option>
+<option value="HPN-100-007">HPN-100-007</option>
+<option value="HPN-100-005SE">HPN-100-005SE</option>
+<option value="HPN-100-005">HPN-100-005</option>
+<option value="Pettengell et al., 2012 (Verf.-Nr. 406)">Pettengell et al., 2012 (Verf.-Nr. 406)</option>
+<option value="Pan et al., 2002 (Verf.-Nr. 406)">Pan et al., 2002 (Verf.-Nr. 406)</option>
+<option value="Olivieri et al., 2005 (Verf.-Nr. 406)">Olivieri et al., 2005 (Verf.-Nr. 406)</option>
+<option value="Eyre et al, 2016 (Verf.-Nr. 406)">Eyre et al, 2016 (Verf.-Nr. 406)</option>
+<option value="Aurer et al., 2002 (Verf.-Nr. 406)">Aurer et al., 2002 (Verf.-Nr. 406)</option>
+<option value="Merkel 200 (Teil B)">Merkel 200 (Teil B)</option>
+<option value="IMF-Kohorte">IMF-Kohorte</option>
+<option value="MM003">MM003</option>
+<option value="GEN501">GEN501</option>
+<option value="54767414MMY2002 (Verf.-Nr. 234)">54767414MMY2002 (Verf.-Nr. 234)</option>
+<option value="GS-1101">GS-1101</option>
+<option value="OMB114242">OMB114242</option>
+<option value="PCI-32765CLL3001 (Verf.-Nr. 215)">PCI-32765CLL3001 (Verf.-Nr. 215)</option>
+<option value="PCYC-1103-CA (Verf.-Nr. 215)">PCYC-1103-CA (Verf.-Nr. 215)</option>
+<option value="PCYC-1102-CA (Verf.-Nr. 215)">PCYC-1102-CA (Verf.-Nr. 215)</option>
+<option value="PCYC-1112-CA (Verf.-Nr. 215)">PCYC-1112-CA (Verf.-Nr. 215)</option>
+<option value="PTC124-GD-007-DMD (Verf.-Nr. 149)">PTC124-GD-007-DMD (Verf.-Nr. 149)</option>
+<option value="CT-AMT-011-05">CT-AMT-011-05</option>
+<option value="CT-AMT-011-03">CT-AMT-011-03</option>
+<option value="CT-AMT-011-02">CT-AMT-011-02</option>
+<option value="CT-AMT-011-01">CT-AMT-011-01</option>
+<option value="PREP-02">PREP-02</option>
+<option value="CT-AMT-010-01">CT-AMT-010-01</option>
+<option value="PREP-01">PREP-01</option>
+<option value="C2305">C2305</option>
+<option value="C2402">C2402</option>
+<option value="I4T-IE-JVBD (Verf.-Nr. 158)">I4T-IE-JVBD (Verf.-Nr. 158)</option>
+<option value="I4T-IE-JVBE (Verf.-Nr. 158)">I4T-IE-JVBE (Verf.-Nr. 158)</option>
+<option value="1199.34 (Verf.-Nr. 164)">1199.34 (Verf.-Nr. 164)</option>
+<option value="1199.32 (Verf.-Nr. 164)">1199.32 (Verf.-Nr. 164)</option>
+<option value="GZGD02607">GZGD02607</option>
+<option value="GZGD02507">GZGD02507</option>
+<option value="D0810C00019 (Verf.-Nr. 173)">D0810C00019 (Verf.-Nr. 173)</option>
+<option value="E7080-G000-303 (Verf.-Nr.: 177)">E7080-G000-303 (Verf.-Nr.: 177)</option>
+<option value="VX11-770-110">VX11-770-110</option>
+<option value="VX11-770-108 ">VX11-770-108 </option>
+<option value="PCYC-1118E (Verf.-Nr. 491)">PCYC-1118E (Verf.-Nr. 491)</option>
+<option value="PCI-32765MCL3001">PCI-32765MCL3001</option>
+<option value="PCI-32765MCL2001">PCI-32765MCL2001</option>
+<option value="PCYC-1104-CA (Verf.-Nr. 215)">PCYC-1104-CA (Verf.-Nr. 215)</option>
+<option value="CUV039">CUV039</option>
+<option value="NCT00484185">NCT00484185</option>
+<option value=" Windyga et al."> Windyga et al.</option>
+<option value="Valentino et al.">Valentino et al.</option>
+<option value="Urasinski et al.">Urasinski et al.</option>
+<option value="Solano Trujillo et al.">Solano Trujillo et al.</option>
+<option value="Monahan et al.">Monahan et al.</option>
+<option value="Lissitchkov et al.">Lissitchkov et al.</option>
+<option value="Lambert et al.">Lambert et al.</option>
+<option value="Kavakli et al.">Kavakli et al.</option>
+<option value="CSL654_3003">CSL654_3003</option>
+<option value="CSL654_3002">CSL654_3002</option>
+<option value="CSL654_3001">CSL654_3001</option>
+<option value="CSL654_2004">CSL654_2004</option>
+<option value="AT1001-041">AT1001-041</option>
+<option value="AT1001-012 ">AT1001-012 </option>
+<option value="AT1001-011">AT1001-011</option>
+<option value="PTC124-GD-020-DMD">PTC124-GD-020-DMD</option>
+<option value="PTC124-GD-007-DMD (Verf.-Nr. 239)">PTC124-GD-007-DMD (Verf.-Nr. 239)</option>
+<option value="9HB01EXT">9HB01EXT</option>
+<option value="9HB02PED">9HB02PED</option>
+<option value="998HB102">998HB102</option>
+<option value="CLL11 (Verf.-Nr. 244)">CLL11 (Verf.-Nr. 244)</option>
+<option value="COMPLEMENT 1">COMPLEMENT 1</option>
+<option value="PCYC-1116-CA">PCYC-1116-CA</option>
+<option value="PCYC-1115-CA">PCYC-1115-CA</option>
+<option value="GAO4753g">GAO4753g</option>
+<option value="TED-C13-003">TED-C13-003</option>
+<option value="VP-VEC-162-3203 ">VP-VEC-162-3203 </option>
+<option value="VP-VEC-162-3201">VP-VEC-162-3201</option>
+<option value="Harmony III">Harmony III</option>
+<option value="Harmony CTP">Harmony CTP</option>
+<option value="Harmony 1bis">Harmony 1bis</option>
+<option value="Harmony 1">Harmony 1</option>
+<option value="SGN35-005">SGN35-005</option>
+<option value="2011-003">2011-003</option>
+<option value="NCT01456351">NCT01456351</option>
+<option value="PCI-32765CLL3001 (Verf.-Nr. 265)">PCI-32765CLL3001 (Verf.-Nr. 265)</option>
+<option value="AC-055-302 (Verf.-Nr. 266)">AC-055-302 (Verf.-Nr. 266)</option>
+<option value="I5B-IE-JGDG">I5B-IE-JGDG</option>
+<option value="M14-032 (Verf.-Nr. 271)">M14-032 (Verf.-Nr. 271)</option>
+<option value="M13-982 (Verf.-Nr. 271)">M13-982 (Verf.-Nr. 271)</option>
+<option value="ENB-009-10 (nicht RCT-Teil)">ENB-009-10 (nicht RCT-Teil)</option>
+<option value="C16010">C16010</option>
+<option value="Langzeitsicherheitsstudie der Studie 747-301">Langzeitsicherheitsstudie der Studie 747-301</option>
+<option value="Studie 747-301">Studie 747-301</option>
+<option value="00103311 (Verf.-Nr. 296)">00103311 (Verf.-Nr. 296)</option>
+<option value="232SM201">232SM201</option>
+<option value="ISIS 396443-CS4 ">ISIS 396443-CS4 </option>
+<option value="ISIS 396443-CS3B ">ISIS 396443-CS3B </option>
+<option value="190-901">190-901</option>
+<option value="190-202">190-202</option>
+<option value="190-201">190-201</option>
+<option value="B1931022">B1931022</option>
+<option value="54767414MMY3010">54767414MMY3010</option>
+<option value="54767414MMY2002 (Verf.-Nr. 307)">54767414MMY2002 (Verf.-Nr. 307)</option>
+<option value="54767414MMY3003">54767414MMY3003</option>
+<option value="54767414MMY3004">54767414MMY3004</option>
+<option value="MOR-005 (Verf.-Nr. 313)">MOR-005 (Verf.-Nr. 313)</option>
+<option value="MOR-004 (Verf.-Nr. 313)">MOR-004 (Verf.-Nr. 313)</option>
+<option value="MOR-001">MOR-001</option>
+<option value="Merkel 200 (Teil A)">Merkel 200 (Teil A)</option>
+<option value="LX1606.302">LX1606.302</option>
+<option value="LX1606.303">LX1606.303</option>
+<option value="LX1606.301">LX1606.301</option>
+<option value="CPKC412D2201">CPKC412D2201</option>
+<option value="CPKC412A2213">CPKC412A2213</option>
+<option value="CPKC412A2301">CPKC412A2301</option>
+<option value="BO21223">BO21223</option>
+<option value="NGF0214">NGF0214</option>
+<option value="NGF0212">NGF0212</option>
+<option value="Pair-matched Analyse Zalmoxis® versus EBMT Register">Pair-matched Analyse Zalmoxis® versus EBMT Register</option>
+<option value="TK 007">TK 007</option>
+<option value="TK 008">TK 008</option>
+<option value="C25001">C25001</option>
+<option value="MK-8228-001">MK-8228-001</option>
+<option value="HPN-100-006 ">HPN-100-006 </option>
+<option value="UX023-CL002">UX023-CL002</option>
+<option value="UX023-CL205">UX023-CL205</option>
+<option value="UX023-CL201">UX023-CL201</option>
+<option value="rhLAMAN-10">rhLAMAN-10</option>
+<option value="Cx601-0302">Cx601-0302</option>
+<option value="ALFA-0701">ALFA-0701</option>
+<option value="Schuster et al.">Schuster et al.</option>
+<option value="CCTL019C2201">CCTL019C2201</option>
+<option value="CCTL019B2101J">CCTL019B2101J</option>
+<option value="CCTL019B2205J">CCTL019B2205J</option>
+<option value="CCTL019B2202">CCTL019B2202</option>
+<option value="ALN-TTR02-004">ALN-TTR02-004</option>
+<option value="ISIS 420915-CS3">ISIS 420915-CS3</option>
+<option value="ISIS 420915-CS2 ">ISIS 420915-CS2 </option>
+<option value="FHA101">FHA101</option>
+<option value="NIH 20010769">NIH 20010769</option>
+<option value="NIH 991265">NIH 991265</option>
+<option value="ALX-HPP-502s">ALX-HPP-502s</option>
+<option value="ALX-HPP-502">ALX-HPP-502</option>
+<option value="ENB-011-10">ENB-011-10</option>
+<option value="ENB-008-10">ENB-008-10</option>
+<option value="ENB-006-09">ENB-006-09</option>
+<option value="ENB-010-10">ENB-010-10</option>
+<option value="ENB-003-08">ENB-003-08</option>
+<option value="ENB-002-08">ENB-002-08</option>
+<option value="ENB-009-10 (RCT-Teil)">ENB-009-10 (RCT-Teil)</option>
+<option value="CLTR0310-301">CLTR0310-301</option>
+<option value="SCHOLAR-1 (Verf.-Nr. 406)">SCHOLAR-1 (Verf.-Nr. 406)</option>
+<option value="ALX0681-C301">ALX0681-C301</option>
+<option value="ALX-0681-2.1/10">ALX-0681-2.1/10</option>
+<option value="UX003-CL201">UX003-CL201</option>
+<option value="UX003-CL203">UX003-CL203</option>
+<option value="UX003-CL301">UX003-CL301</option>
+<option value="CRS, SNT-IR-006">CRS, SNT-IR-006</option>
+<option value="SNT-II-003-OFU">SNT-II-003-OFU</option>
+<option value="SNT-EAP-001">SNT-EAP-001</option>
+<option value="SNT-II-003">SNT-II-003</option>
+<option value="CLBH589DUS71">CLBH589DUS71</option>
+<option value="CLBH589D2308">CLBH589D2308</option>
+<option value="CC-4047-MM-003 (Verf.-Nr. 194)">CC-4047-MM-003 (Verf.-Nr. 194)</option>
+<option value="LAL-CL01">LAL-CL01</option>
+<option value="LAL-CL04">LAL-CL04</option>
+<option value="PX-171-009">PX-171-009</option>
+<option value="Fx-006">Fx-006</option>
+<option value="20120310">20120310</option>
+<option value="Fx-005">Fx-005</option>
+<option value="MT103-211">MT103-211</option>
+<option value="9766-CL-0103">9766-CL-0103</option>
+<option value="9766-CL-0104">9766-CL-0104</option>
+<option value="LAL-1-NH01">LAL-1-NH01</option>
+<option value="LAL-CL03">LAL-CL03</option>
+<option value="LAL-CL02">LAL-CL02</option>
+<option value="54767414MMY3007">54767414MMY3007</option>
+<option value="KTE-C19-101 (Verf.-Nr. 406)">KTE-C19-101 (Verf.-Nr. 406)</option>
+<option value="VX14-661-108 (Verf.-Nr. 420)">VX14-661-108 (Verf.-Nr. 420)</option>
+<option value="VX14-661-110 (Verf.-Nr. 420)">VX14-661-110 (Verf.-Nr. 420)</option>
+<option value="VX12-809-104 (Verf.-Nr. 420)">VX12-809-104 (Verf.-Nr. 420)</option>
+<option value=" VX12-809-103 (Verf.-Nr. 420)"> VX12-809-103 (Verf.-Nr. 420)</option>
+<option value="VX14-661-106 (Verf.-Nr. 420)">VX14-661-106 (Verf.-Nr. 420)</option>
+<option value="Fx1A-201 ">Fx1A-201 </option>
+<option value="VX14-809-109">VX14-809-109</option>
+<option value="CA184-178">CA184-178</option>
+<option value="35-IST-002">35-IST-002</option>
+<option value="35-IST-001">35-IST-001</option>
+<option value="GO29293 (Verf.-Nr.: 426)">GO29293 (Verf.-Nr.: 426)</option>
+<option value="SPINART">SPINART</option>
+<option value="JO39881">JO39881</option>
+<option value="BO39182">BO39182</option>
+<option value="BH30071 (Verf. Nr.: 449)">BH30071 (Verf. Nr.: 449)</option>
+<option value="rhLAMAN-05">rhLAMAN-05</option>
+<option value="PR-30-5011-C">PR-30-5011-C</option>
+<option value="CA209-067 (Verf.-Nr.373)">CA209-067 (Verf.-Nr.373)</option>
+<option value="201637">201637</option>
+<option value="VX08-770-105">VX08-770-105</option>
+<option value="B1871053">B1871053</option>
+<option value="VX08-770-103">VX08-770-103</option>
+<option value="261201">261201</option>
+<option value="15769">15769</option>
+<option value="15768">15768</option>
+<option value="VX08-770-102">VX08-770-102</option></select> </div> <br>
+          <div class="smallbox">Endpunktbezeichnung<span title="Endpunkte einer klinischen Studie sind vordefinierte Ereignisse, z. B. das Auftreten eines bestimmten Ereignisses. Im Dossier, Modul 4, Bezeichnung des Endpunktes aus der Operationalisierung übernehmen. "><img src="https://i.ibb.co/jf8KNrr/iconfinder-Info-132643.png"/></span></div><div class="smallbox"> <textarea name="Endpoints[bezeichnung]" id="Endpoints_bezeichnung">
+</textarea> </div>
+          <div class="smallbox">Instrument<span title="Als Instrumente zählen z. B. Fragebögen oder alles was in der Operationalisierung als solches genannt wurde (KEINE Blutwerte, Röntgenuntersuchungen o. ä.). In der Operationalisierung der einzelnen Endpunkte (Dossier, Modul 4) zu finden."><img src="https://i.ibb.co/jf8KNrr/iconfinder-Info-132643.png"/></span></div><div class="smallbox"><textarea name="Endpoints[instrument]" id="Endpoints_instrument">
+</textarea></div>
+          <div class="smallbox">Kategorie<span title="Insgesamt gibt es die Endpunktkategorien: Morbidität, Mortalität, Lebensqualität und Sicherheit. Im Dossier, Modul 4, unter 'Matrix der Endpunkte' oder unter 'Zusammenfassung der Ergebnisse und Zusatznutzen'. "><img src="https://i.ibb.co/jf8KNrr/iconfinder-Info-132643.png"/></span></div><div class="smallbox"><select name="Endpoints[category]" id="Endpoints_category"><option value="Mortalität">Mortalität</option>
+<option value="Morbidität">Morbidität</option>
+<option value="HrQoL">HrQoL</option>
+<option value="Sicherheit">Sicherheit</option>
+<option value="Nicht zugeordnet">Nicht zugeordnet</option></select></div>
+          <div class="smallbox">Klassifikation<span title="Endpunkte werden fast immer in primäre, sekundäre und tertiäre Endpunkte eingeteilt. Im Dossier, Modul 4, unter 'Charakteristika der in die Bewertung eingeschlossenen Studien…' zu finden."><img src="https://i.ibb.co/jf8KNrr/iconfinder-Info-132643.png"/></span></div><div class="smallbox"><select name="Endpoints[classification]" id="Endpoints_classification"><option value="primär">primär</option>
+<option value="sekundär">sekundär</option>
+<option value="tertiär">tertiär</option>
+<option value="explorativ">explorativ</option>
+<option value="nicht angegeben">nicht angegeben</option></select></div>
+         <div class="casing"><div class="smallbox">Zur Nutzenbewertung herangezogen<span title="Angabe welche Endpunkte in der Nutzenbewertung berücksichtigt wurden. Hierfür die initiale Nutzenbewertung öffnen. Bei einer Bewertung durch den G-BA nach 'In der Nutzenbewertung berücksichtigte Endpunkte' suchen. Bei einer IQWiG-Bewertung die Ergebnisse im Text der Fragestellungen durchlesen."><img src="https://i.ibb.co/jf8KNrr/iconfinder-Info-132643.png"/></span></div><div class="smallbox"> <input name="Endpoints[herangezogen]" type="hidden" value="0" /><input type="checkbox" value="1" name="Endpoints[herangezogen]" id="Endpoints_herangezogen" /> </div></div>
+          <div class="smallbox">Anmerkung</div><div class="smallbox"> <textarea name="Endpoints[anmerkung]" id="Endpoints_anmerkung">
+</textarea> </div>
+          <input type="submit" name="commit" value="Endpunkt speichern" data-disable-with="Endpunkt speichern" />
+</form>        </section>
+
+    
+  </body>
+</html>

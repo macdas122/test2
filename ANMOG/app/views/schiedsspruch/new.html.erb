@@ -1,0 +1,10 @@
+
+<div class = "well">
+   <%= form_for :Pricedata , :url =>{:action => "create"} , :html => {:class => "nifty_form"}  do |f| %>
+      <%= f.label :date %>
+      <%= f.date_field :date %>
+      <%= f.label :attachment %>
+      <%= f.file_field :attachment %>
+      <%= f.submit "Save", class: "btn btn-primary" %>
+   <% end %>
+</div>

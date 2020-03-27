@@ -1,0 +1,58 @@
+ <style>
+  .box {
+     float: left;
+     width: 98%;
+     margin-right: 0.5%;
+     margin-left: 0.5%;
+     padding: 2px;
+     box-sizing: border-box;
+  }
+  .smallbox {
+     float: left;
+     width: 45%;
+     padding: 1px;
+     box-sizing: border-box;
+  }
+  .smallboxen {
+     float: left;
+     width: 38%;
+     padding: 1px;
+     box-sizing: border-box;
+  }
+  .casing {
+     float: left;
+     width: 100%;
+  }
+  .holeCasing {
+     float: left;
+     width: 40%;
+     box-sizing: border-box;
+  }
+  .justCasing {
+     float: left;
+     width: 90%;
+     box-sizing: border-box;
+  }
+  .just {
+     float: left;
+     width: 50%;
+     box-sizing: border-box;
+  }
+ </style>
+
+
+
+
+
+
+
+    <ul class="casing">
+        <section class="holeCasing">
+          <h3><u>Neue Anmerkung zum Preis</u></h3>
+          <%= form_for @preis_anmerkung do |pa| %>
+          <div class="smallbox">Verfahren der Anmerkung</div> <div class="smallbox"><%= pa.collection_select(:verfahrensnummer , Main.all.order(:gba_number) , :gba_number , :gba_number , selected:@preis_anmerkung.verfahrensnummer)%></div>          <div class="smallbox">Anmerkung</div> <div class="smallbox"><%= pa.text_area :anmerkung %></div>
+          <%= pa.submit "Anmerkung speichern"%>
+          <% end %>
+        </section>
+    </ul>
+

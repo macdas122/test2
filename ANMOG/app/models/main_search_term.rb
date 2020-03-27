@@ -29,7 +29,7 @@ class MainSearchTerm
         end
 
         def starts_with(search_term)
-            search_term + "%"
+           "%" + search_term + "%"
         end
 
         def case_insensitive_search(field_name)

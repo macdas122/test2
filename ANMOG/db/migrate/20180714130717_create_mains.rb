@@ -18,10 +18,11 @@ class CreateMains < ActiveRecord::Migration[5.2]
       t.string :indication              , null: false
       t.integer :subgroups              , null: false
       t.decimal :benefit_percentige     , null: false
-      t.boolean :benefit                , null: false
+      t.boolean :science                , null: false
       t.string :market_availability     , null: false
+      t.date :befristung 		, null: true
+      t.boolean :over_one_million	, null: true
 
-     t.timestamps                       null: false
     end
     add_index :mains, :gba_number, unique: true
   end

@@ -1,0 +1,55 @@
+<style>
+.smallbox {
+     float: left;
+     width: 45%;
+     padding: 1px;
+     box-sizing: border-box;
+}
+.just {
+     float: left;
+     width: 35%;
+     box-sizing: border-box;
+     margin: 20px;
+}
+</style>
+
+
+
+
+	
+	<div class="just">
+	<h4><u>initiale Nutzenbewertung</u></h4>
+	<%= form_for @gba do |is| %>
+          <% @skc = current_skc %>
+          <%= is.hidden_field :updated_by , :value => @skc.email %>
+
+        <%= is.hidden_field :updated_at , :value => Time.now %> 
+        <div class="smallbox">G-BA Verfahrensnummer</div><div class="smallbox"> <%=  is.collection_select(:verfahrensnummer, Main.all.order(:gba_number), :gba_number, :gba_number, selected: @gba.verfahrensnummer)  %></div> <br />
+        <div class="smallbox">Bewertung durchgeführt von</div><div class="smallbox"><%= is.select(:bewertung, options_for_select([['G-BA' , 'G-BA'],['IQWiG','IQWiG']], selected: @gba.bewertung))  %> </div> <br />
+        <div class="smallbox">Name der Subgruppe</div><div class="smallbox"> <%= is.text_field :subgroup_name %></div> <br />
+        <div class="smallbox">ZVT<span title="Zwecks Vergleichstherapie/Appropriate Comparison Therapy"><img src="https://i.ibb.co/jf8KNrr/iconfinder-Info-132643.png"/></span></div><div class="smallbox"> <%= is.text_field :act %></div> <br />
+         <div class="smallbox">ZVT Status</div><div class="smallbox"><%= is.select(:zvt_status, options_for_select([['nicht Vorhanden' , 'nicht Vorhanden'],['nicht eingetragen','nicht eingetragen'],['eingetragen','eingetragen']], selected: @gba.zvt_status))  %> </div> <br />       
+	<div class="smallbox">Studie Nr.1</div><div class="smallbox"><%= is.collection_select(:studie_eins, Studies.all.order(:studien_name), :bezeichnung, :bezeichnung, prompt: true, selected: @gba.studie_eins) %> </div> <br />
+        <div class="smallbox">Studie Nr.2</div><div class="smallbox"><%= is.collection_select(:studie_zwei, Studies.all.order(:studien_name), :bezeichnung, :bezeichnung, prompt: true, selected: @gba.studie_zwei) %> </div> <br />
+        <div class="smallbox">Studie Nr.3</div><div class="smallbox"><%= is.collection_select(:studie_drei, Studies.all.order(:studien_name), :bezeichnung, :bezeichnung, prompt: true, selected: @gba.studie_drei) %> </div> <br />
+        <div class="smallbox">Studie Nr.4</div><div class="smallbox"><%= is.collection_select(:studie_vier, Studies.all.order(:studien_name), :bezeichnung, :bezeichnung, prompt: true, selected: @gba.studie_vier) %> </div> <br />
+        <div class="smallbox">Studie Nr.5</div><div class="smallbox"><%= is.collection_select(:studie_fuenf, Studies.all.order(:studien_name), :bezeichnung, :bezeichnung, prompt: true, selected: @gba.studie_fuenf) %> </div> <br />
+        <div class="smallbox">Studie Nr.6</div><div class="smallbox"><%= is.collection_select(:studie_sechs, Studies.all.order(:studien_name), :bezeichnung, :bezeichnung, prompt: true, selected: @gba.studie_sechs) %> </div> <br />
+        <div class="smallbox">ITC</div><div class="smallbox"><%= is.check_box :itc %> </div><br />
+        <div class="smallbox">NMA</div><div class="smallbox"><%= is.check_box :nma %> </div><br />
+        <div class="smallbox">MAIC</div><div class="smallbox"><%= is.check_box  :maic %> </div><br />
+        <div class="smallbox">ITC/NMA/MAIC<span title="Indirect Treatment Comparison/Indirekter Vergleich. Network-Meta Analysis/Netwerz-Metaanalyse. Matching Adjusted Indirect Comparison/Matching-adjustierter Indirekter Vergleich."><img src="https://i.ibb.co/jf8KNrr/iconfinder-Info-132643.png"/></span></div><div class="smallbox"><%= is.collection_select(:itc_eins , Studies.all.order(:studien_name), :id, :bezeichnung, prompt: true, selected: @gba.itc_eins) %><%= is.collection_select(:itc_zwei , Studies.all.order(:studien_name), :id, :bezeichnung, prompt: true, selected: @gba.itc_zwei) %><%= is.collection_select(:itc_drei , Studies.all.order(:studien_name), :id, :bezeichnung, prompt: true) %><%= is.collection_select(:itc_vier , Studies.all.order(:studien_name), :id, :bezeichnung, prompt: true) %><%= is.collection_select(:itc_fuenf , Studies.all.order(:studien_name), :id, :bezeichnung, prompt: true) %></div> <br />
+        <div class="casing"><h4><u>Zusatznutzenclaim</u></h4> </div>
+        <div class="smallbox">Wahrscheinlichkeit</div><div class="smallbox"><%= is.select(:wahrscheinlichkeit, options_for_select([['Anhaltspunkt' , 'Anhaltspunkt'],['Hinweis','Hinweis'],['Beweis','Beweins'],['-','']], selected: @gba.wahrscheinlichkeit))  %> </div> <br />
+        <div class="smallbox">Zusatznutzen Kategorie</div><div class="smallbox"> <%= is.select(:benefit , options_for_select([['Erheblich','erheblicher Zusatznutzen'],['Beträchtlich','beträchtlicher Zusatznutzen'],['Gering','geringer Zusatznutzen'],['nicht-quantifieziert','nicht-quantifizierter Zusatznutzen'],['Geringerer','geringerer Zusatznutzen'],['Kein','Kein Zusatznutzen'],['-','']], selected: @gba.benefit)) %> </div><br />
+         <div class="casing"><h4><u>allgemeine Anmerkungen</u></h4> </div>
+         <div class="smallbox">Anmerkung</div><div class="smallbox"> <%= is.text_area :anmerkung %></div> <br />
+
+
+
+
+
+        <%= is.submit "save Subgroup"%>
+	<%end%>
+
+</div>

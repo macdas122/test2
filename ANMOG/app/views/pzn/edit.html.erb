@@ -1,0 +1,12 @@
+<section>
+    <%= form_for @pzn do |p| %>
+	<div>PZN <%= @pzn.pzn %></div>
+	<div>Datum <%= @pzn.created_at %></div>
+	<div>Artikelname</div><div><%= p.text_field :Artikelname %></div>
+	<div>NBR</div><div><%= p.number_field :nbr , :step => 0.0001 %></div>
+	<div>PpU</div><div><%= p.number_field :ppu , :step => 0.0001  %></div>
+	<div>Apu/Hap</div><div><%= p.number_field :apu_hap, :step => 0.0001  %></div>
+	<div>Apothekenabschlag</div><div><%= p.number_field :apothekenabschlag , :step => 0.0001 %></div>
+    <%= p.submit "Speichern" %>		
+    <% end %>	
+</section>

@@ -1,0 +1,2 @@
+class Jtkgba < ApplicationRecord
+end

@@ -1,0 +1,174 @@
+<style>
+.box {
+     float: left;
+     width: 98%;
+     margin-right: 0.5%;
+     margin-left: 0.5%;
+     padding: 2px;
+     box-sizing: border-box;
+}
+.smallbox {
+     float: left;
+     width: 45%;
+     padding: 1px;
+     box-sizing: border-box;
+}
+.smallboxen {
+     float: left;
+     width: 38%;
+     padding: 1px;
+     box-sizing: border-box;
+}
+.casing {
+     float: left;
+     width: 100%;
+}
+.holeCasing {
+     float: left;
+     width: 40%;
+     box-sizing: border-box;
+}
+.justCasing {
+     float: left;
+     width: 90%;
+     box-sizing: border-box;
+}
+.just {
+     float: left;
+     width: 50%;
+     box-sizing: border-box;
+}
+</style>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"/>
+
+
+<section>
+  <nav class="navbar navbar-default">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <a class="navbar-brand" href="#">SKC AMNOG</a>
+      </div>
+      <ul class="nav navbar-nav">
+        <li><a href="../dashboard">Newsfeed</a></li>
+        <li><a href="../mains">Datenbank</a></li>
+        <li><a href="../mains/show">Suche</a></li>
+        <li><a href="../endpoints/show">EP-Suche</a></li>
+        <li class="active"><a href="../main">Dateneingabe</a></li>
+        <li><a href="../main/show">Datenverwaltung</a></li>
+        <li> <%= link_to "Ausloggen", destroy_skc_session_path, method: :delete %></li>
+      </ul>
+    </div>
+  </nav>
+</section>
+<% @skc = current_skc %>
+
+<span title=""><img src="https://i.ibb.co/jf8KNrr/iconfinder-Info-132643.png"/></span>
+
+
+    <ul class="casing">
+       <div class="justCasing">
+        <h3><u>Neue Subgruppe</u></h3>
+       <%= form_for :Gbasubgroups, :url => {:controller => "gbasubgroup" , :action => "create" }, :html => {:class => "nifty_form"} do |ds| %>
+        <div class="smallbox">
+        <%= ds.hidden_field :id , :value => Gbasubgroup.maximum(:id) + 1 %>
+        <%= ds.hidden_field :created_at , :value => Time.now %>
+        <%= ds.hidden_field :updated_at , :value => Time.now %>
+        <%= ds.hidden_field :updated_by , :value => @skc.email %>
+
+        <div class="smallbox">G-BA-Verfahrensnummer</div><div class="smallbox"> <%=  ds.collection_select(:verfahrensnummer, Main.all.order(:gba_number), :gba_number, :gba_number)  %></div> <br />
+        <div class="smallbox">Bezeichnung der Subgruppe<span title="Es kann eine Unterteilung in Subgruppen erfolgen, für die ein unterschiedlicher Zusatznutzen abgeleitet wird. Im Beschluss aus dem Anwendungsgebiet herauslesbar, bzw. bei mehreren Subgruppen unter 'Ausmaß des Zusatznutzens des Arzneimittels' (ACHTUNG: nicht zwingend deckungsgleich mit den Angaben aus dem Dossier)."><img src="https://i.ibb.co/jf8KNrr/iconfinder-Info-132643.png"/></span></div><div class="smallbox"> <%= ds.text_area :subgroup_name %></div> <br />
+        <div class="smallbox">Studie Nr. 1<span title="Hier die Studien angeben, die im Beschluss für den Zusatznutzen herangezogen werden.  Im Beschluss und in den Tragenden Gründen nachzulesen."><img src="https://i.ibb.co/jf8KNrr/iconfinder-Info-132643.png"/></span></div><div class="smallbox"><%= ds.collection_select(:studie_eins, @studiengrp , :bezeichnung, :bezeichnung, prompt: true) %> </div> <br />
+        <div class="smallbox">Studie Nr. 2</div><div class="smallbox"><%= ds.collection_select(:studie_zwei, @studiengrp , :bezeichnung, :bezeichnung, prompt: true) %> </div> <br />
+        <div class="smallbox">Studie Nr. 3</div><div class="smallbox"><%= ds.collection_select(:studie_drei, @studiengrp , :bezeichnung, :bezeichnung, prompt: true) %> </div> <br />
+        <div class="smallbox">Studie Nr. 4</div><div class="smallbox"><%= ds.collection_select(:studie_vier, @studiengrp , :bezeichnung, :bezeichnung, prompt: true) %> </div> <br />
+        <div class="smallbox">Studie Nr. 5</div><div class="smallbox"><%= ds.collection_select(:studie_fuenf, @studiengrp , :bezeichnung, :bezeichnung, prompt: true) %> </div> <br />
+        <div class="smallbox">Studie Nr. 6</div><div class="smallbox"><%= ds.collection_select(:studie_sechs, @studiengrp , :bezeichnung, :bezeichnung, prompt: true) %> </div> <br />
+        <div class="smallbox">ITC<span title="Indirect Treatment Comparison; indirekter Vergleich: In den Tragenden Gründen nach indirekter Vergleich suchen."><img src="https://i.ibb.co/jf8KNrr/iconfinder-Info-132643.png"/></span></div><div class="smallbox"><%= ds.check_box :itc %> </div><br />
+        <div class="smallbox">NMA<span title="Netzwerk-Meta Analyse: In den Tragenden Gründen nach Netzwerk Metaanalyse suchen. Genau durchlesen, Metaanalysen kommen häufiger vor, Netzwerk Metaanalysen eher nicht.  (ACHTUNG: Unterschiedliche Schreibweisen beachten)."><img src="https://i.ibb.co/jf8KNrr/iconfinder-Info-132643.png"/></span></div><div class="smallbox"><%= ds.check_box :nma %> </div><br />
+        <div class="smallbox">MAIC<span title="Matching-adjustierter indirekter Vergleich: In den Tragenden Gründen nach matching adjustierter indirekter Vergleich suchen (ACHTUNG: Unterschiedliche Schreibweisen beachten)."><img src="https://i.ibb.co/jf8KNrr/iconfinder-Info-132643.png"/></span></div><div class="smallbox"><%= ds.check_box  :maic %> </div><br />
+        <div class="smallbox">ITC/NMA/MAIC<span title="Indirect Treatment Comparison/Indirekter Vergleich. Network-Meta Analysis/Netwerz-Metaanalyse. Matching Adjusted Indirect Comparison/Matching-adjustierter Indirekter Vergleich."><img src="https://i.ibb.co/jf8KNrr/iconfinder-Info-132643.png"/></span></div>
+        <div class="smallbox"><%= ds.collection_select(:itc_eins , @studiengrp , :id, :bezeichnung, prompt: true) %>
+        <%= ds.collection_select(:itc_zwei , @studiengrp , :id, :bezeichnung, prompt: true) %>
+        <%= ds.collection_select(:itc_drei , @studiengrp , :id, :bezeichnung, prompt: true) %>
+        <%= ds.collection_select(:itc_vier , @studiengrp , :id, :bezeichnung, prompt: true) %>
+        <%= ds.collection_select(:itc_fuenf , @studiengrp , :id, :bezeichnung, prompt: true) %>
+        <%= ds.collection_select(:itc_sechs , @studiengrp , :id, :bezeichnung, prompt: true) %>
+        <%= ds.collection_select(:itc_sieben , @studiengrp , :id, :bezeichnung, prompt: true) %>
+        <%= ds.collection_select(:itc_acht , @studiengrp , :id, :bezeichnung, prompt: true) %>
+        <%= ds.collection_select(:itc_neun , @studiengrp , :id, :bezeichnung, prompt: true) %>
+        <%= ds.collection_select(:itc_zehn , @studiengrp , :id, :bezeichnung, prompt: true) %>
+        <%= ds.collection_select(:itc_elf , @studiengrp , :id, :bezeichnung, prompt: true) %>
+        <%= ds.collection_select(:itc_zwoelf , @studiengrp , :id, :bezeichnung, prompt: true) %>
+</div><br />
+
+
+        <div class="smallbox">Population min.<span title="Mindestanzahl der infrage kommenden Patienten der Subgruppe: Im Beschluss unter 'Anzahl der Patienten bzw. Abgrenzung der für die Behandlung infrage kommenden Patientengruppen'. Ist keine Spanne angegeben wird die Anzahl im Min.-Feld eingetragen."><img src="https://i.ibb.co/jf8KNrr/iconfinder-Info-132643.png"/></span>
+</div><div class="smallbox"> <%= ds.number_field :population_min %></div> <br />
+        <div class="smallbox">Population max.<span title="Maximalanzahl der infrage kommenden Patienten der Subgruppe: Im Beschluss unter 'Anzahl der Patienten bzw. Abgrenzung der für die Behandlung infrage kommenden Patientengruppen'. Ist keine Spanne angegeben wird die Anzahl im Min.-Feld eingetragen."><img src="https://i.ibb.co/jf8KNrr/iconfinder-Info-132643.png"/></span>
+</div><div class="smallbox"> <%= ds.number_field :population_max %> </div><br />
+        <div class="casing"><h4><u>Zusatznutzen</u></h4> </div>
+        <div class="smallbox">Wahrscheinlichkeit<span title="Abstufung zur Aussagesicherheit zum Zusatznutzen: Es liegt entweder ein Beleg (höchste Sicherheit), ein Hinweis (mittlere Sicherheit), ein Anhaltspunkt (schwächste Sicherheit) oder keine dieser Situationen vor (ACHTUNG: Bei Orphan Verfahren erfolgt die Einstufung nicht). Im Beschluss unter 'Zusatznutzen des  Arzneimittels im Verhältnis zur zweckmäßigen Vergleichstherapie' zu finden."><img src="https://i.ibb.co/jf8KNrr/iconfinder-Info-132643.png"/></span>
+</div><div class="smallbox"><%= ds.select(:wahrscheinlichkeit, options_for_select([['Anhaltspunkt' , 'Anhaltspunkt'],['Hinweis','Hinweis'],['Beweis','Beweins'],['-','']]))  %> </div> <br />
+        <div class="smallbox">Kategorie Zusatznutzen<span title="Das Ausmaß des Zusatznutzens wird als erheblich, beträchtlich, gering, nicht quantifizierbar, kein Zusatznutzen, geringerer Nutzen beschrieben. Zu finden im Beschluss unter 'Patientengruppen, für die ein therapeutisch bedeutsamer Zusatznutzen besteht, einschließlich Ausmaß des Zusatznutzens'."><img src="https://i.ibb.co/jf8KNrr/iconfinder-Info-132643.png"/></span>
+</div><div class="smallbox"> <%= ds.select(:benefit , options_for_select([['Erheblich','erheblicher Zusatznutzen'],['Beträchtlich','beträchtlicher Zusatznutzen'],['Gering','geringer Zusatznutzen'],['nicht quantifiziert','nicht quantifizierter Zusatznutzen'],['Kein','Kein Zusatznutzen'],['-','']])) %> </div><br />
+         <div class="casing"><h4><u>allgemeine Anmerkungen</u></h4> </div>
+         <div class="smallbox">Anmerkung</div><div class="smallbox"> <%= ds.text_area :anmerkung %></div> <br />
+        </div>
+
+
+        <div class="smallbox">
+        <h4>Jahrestherapiekosten nach G-BA-Beschluss<span title="Im Beschluss unter 'Therapiekosten' zu finden (nur die reinen Kosten des Arzneimittels angeben). Ist keine Spanne angegeben werden die Kosten im Min.-Feld angegeben."><img src="https://i.ibb.co/jf8KNrr/iconfinder-Info-132643.png"/></span></h4>
+              <div class="smallbox">Min.</div><div class="smallbox"> <%= ds.number_field :jahrestherapiekosten_gba_min %></div> <br />
+              <div class="smallbox">Max.</div><div class="smallbox"> <%= ds.number_field :jahrestherapiekosten_gba_max %></div><br />
+        <h4>Jahreskosten ZVT Nr. 1<span title="Zweckmäßige Vergleichstherapie gegen die ein Zusatznutzennachgewiesen werden muss: Im Beschluss unter 'Therapiekosten' zu finden (nur die reinen Kosten des Arzneimittels angeben). Ist keine Spanne angegeben, werden die Kosten im Min.-Feld angegeben."><img src="https://i.ibb.co/jf8KNrr/iconfinder-Info-132643.png"/></span></h4>
+        <div class="smallbox">ZVT Status<span title=""><img src="https://i.ibb.co/jf8KNrr/iconfinder-Info-132643.png"/></span></div><div class="smallbox"><%= ds.select(:zvt_status, options_for_select([['nicht Vorhanden' , 'nicht Vorhanden'],['nicht eingetragen','nicht eingetragen'],['eingetragen','eingetragen']]))  %> </div> <br />
+              <div class="smallbox">Bezeichnung der ZVT<span title="Zwecks Vergleichstherapie/Appropriate Comparison Therapy"><img src="https://i.ibb.co/jf8KNrr/iconfinder-Info-132643.png"/></span>
+              </div><div class="smallbox"> <%= ds.text_field :zvt_name_eins %></div> <br />
+              <div class="smallbox">Min.</div><div class="smallbox"> <%= ds.number_field :zvt_eins_min %></div> <br />
+              <div class="smallbox">Max.</div><div class="smallbox"> <%= ds.number_field :zvt_eins_max %></div><br />
+        <h4>Jahreskosten ZVT Nr. 2</h4>
+              <div class="smallbox">Bezeichnung der ZVT</div><div class="smallbox"> <%= ds.text_field :zvt_name_zwei %></div> <br />
+              <div class="smallbox">Min.</div><div class="smallbox"> <%= ds.number_field :zvt_zwei_min %></div> <br />
+              <div class="smallbox">Max.</div><div class="smallbox"> <%= ds.number_field :zvt_zwei_max %></div><br />
+        <h4>Jahreskosten ZVT Nr. 3</h4>
+              <div class="smallbox">Bezeichnung der ZVT</div><div class="smallbox"> <%= ds.text_field :zvt_name_drei %></div> <br />
+              <div class="smallbox">Min.</div><div class="smallbox"> <%= ds.number_field :zvt_drei_min %></div> <br />
+              <div class="smallbox">Max.</div><div class="smallbox"> <%= ds.number_field :zvt_drei_max %></div><br />
+        <h4>Jahreskosten ZVT Nr. 4</h4>
+              <div class="smallbox">Bezeichnung der ZVT</div><div class="smallbox"> <%= ds.text_field :zvt_name_vier %></div> <br />
+              <div class="smallbox">Min.</div><div class="smallbox"> <%= ds.number_field :zvt_vier_min %></div> <br />
+              <div class="smallbox">Max.</div><div class="smallbox"> <%= ds.number_field :zvt_vier_max %></div><br />
+        <h4>Jahreskosten ZVT Nr. 5</h4>
+              <div class="smallbox">Bezeichnung der ZVT</div><div class="smallbox"> <%= ds.text_field :zvt_name_fuenf %></div> <br />
+              <div class="smallbox">Min.</div><div class="smallbox"> <%= ds.number_field :zvt_fuenf_min %></div> <br />
+              <div class="smallbox">Max.</div><div class="smallbox"> <%= ds.number_field :zvt_fuenf_max %></div><br />
+        <h4>Jahreskosten ZVT Nr. 6</h4>
+              <div class="smallbox">Bezeichnung der ZVT</div><div class="smallbox"> <%= ds.text_field :zvt_name_sechs %></div> <br />
+              <div class="smallbox">Min.</div><div class="smallbox"> <%= ds.number_field :zvt_sechs_min %></div> <br />
+              <div class="smallbox">Max.</div><div class="smallbox"> <%= ds.number_field :zvt_sechs_max %></div><br />
+        <h4>Jahreskosten ZVT Nr. 7</h4>
+              <div class="smallbox">Bezeichnung der ZVT</div><div class="smallbox"> <%= ds.text_field :zvt_name_sieben %></div> <br />
+              <div class="smallbox">Min.</div><div class="smallbox"> <%= ds.number_field :zvt_sieben_min %></div> <br />
+              <div class="smallbox">Max.</div><div class="smallbox"> <%= ds.number_field :zvt_sieben_max %></div><br />
+        <h4>Jahreskosten ZVT Nr. 8</h4>
+              <div class="smallbox">Bezeichnung der ZVT</div><div class="smallbox"> <%= ds.text_field :zvt_name_acht %></div> <br />
+              <div class="smallbox">Min.</div><div class="smallbox"> <%= ds.number_field :zvt_acht_min %></div> <br />
+              <div class="smallbox">Max.</div><div class="smallbox"> <%= ds.number_field :zvt_acht_max %></div><br />
+        <h4>Jahreskosten ZVT Nr. 9</h4>
+              <div class="smallbox">Bezeichnung der ZVT</div><div class="smallbox"> <%= ds.text_field :zvt_name_neun %></div> <br />
+              <div class="smallbox">Min.</div><div class="smallbox"> <%= ds.number_field :zvt_neun_min %></div> <br />
+              <div class="smallbox">Max.</div><div class="smallbox"> <%= ds.number_field :zvt_neun_max %></div><br />
+        <h4>Jahreskosten ZVT Nr. 10</h4>
+              <div class="smallbox">Bezeichnung der ZVT</div><div class="smallbox"> <%= ds.text_field :zvt_name_zehn %></div> <br />
+              <div class="smallbox">Min.</div><div class="smallbox"> <%= ds.number_field :zvt_zehn_min %></div> <br />
+              <div class="smallbox">Max.</div><div class="smallbox"> <%= ds.number_field :zvt_zehn_max %></div><br />
+        <%= ds.submit "Subgruppe speichern"%>
+        <% end %>
+        </div>
+      </div>
+    </ul>
+

@@ -9,7 +9,11 @@
 //
 // Read Sprockets README (https://github.com/rails/sprockets#sprockets-directives) for details
 // about supported directives.
-//
+//= require_tree
 //= require rails-ujs
 //= require activestorage
-//= require_tree .
+//= require chartkick
+//= require jquery3
+Chartkick.configure({language: "de"})
+//= require popper
+//= require bootstrap
